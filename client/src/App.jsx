@@ -2,7 +2,7 @@ import Register from './pages/Register'
 import { ShopContainer } from './context/Contex'
 import { Routes, Route } from 'react-router-dom'
 import { Login } from './pages/Login'
-
+import './index.css';
 
 function App() {
 
