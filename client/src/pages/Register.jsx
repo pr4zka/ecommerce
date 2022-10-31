@@ -1,13 +1,12 @@
-import React from 'react'
-import { Formik, Form, Field } from 'formik'
-import { useShop } from '../context/Contex'
-import { useState } from 'react'
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Formik, Form, Field } from 'formik';
+import { useShop } from '../context/Contex';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 import '../../src/index.css';
-import { Icon } from 'react-icons-kit'
-import { view } from 'react-icons-kit/ikons/view'
-import { view_off } from 'react-icons-kit/ikons/view_off'
+import { Icon } from 'react-icons-kit';
+import { view } from 'react-icons-kit/ikons/view';
+import { view_off } from 'react-icons-kit/ikons/view_off';
 
 const Register = () => {
 
