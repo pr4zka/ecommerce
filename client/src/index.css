@@ -1,5 +1,5 @@
 :root{
-    --input-margin: 5px;
+    --input-margin: 2px;
     --input-padding: 15px;
     --borders: 10px;
     --borders-c: 15px;
@@ -74,6 +74,7 @@
     color: var(--color-p);
     border: none;
 }
+/* ICONO PASSWORD */
 .password-toogle-icon{
     position: absolute;
     border: none;
@@ -81,8 +82,29 @@
     height: 20px;
     width: 20px;
     left: unset;
-    right: 50px;
-    top: 62%;
+    right: 54px;
+    top: 59%;
     transform: translateY(-50%);
-    transform: scale(1.1);
+    transform: scale(1.5);
+}
+
+
+/* ESTILOS LOGIN */
+.i-l{
+    margin: 6px;
+}
+.password-toogle-icon-l{
+    position: absolute;
+    border: none;
+    background: none;
+    height: 20px;
+    width: 20px;
+    left: unset;
+    right: 54px;
+    top: 45%;
+    transform: translateY(-50%);
+    transform: scale(1.5);
+}
+.text{
+    padding-left: 50px;
 }
