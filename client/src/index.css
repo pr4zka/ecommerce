@@ -79,10 +79,10 @@
     border: none;
     background: none;
     height: 20px;
-    width: 30px;
+    width: 20px;
     left: unset;
     right: 50px;
     top: 62%;
     transform: translateY(-50%);
-    transform: scale(2);
+    transform: scale(1.1);
 }
