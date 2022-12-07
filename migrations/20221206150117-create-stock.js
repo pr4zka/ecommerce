@@ -2,30 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Keyboards', {
+    await queryInterface.createTable('stocks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      disign: {
+      idmercaderia: {
         type: Sequelize.STRING
       },
-      type: {
+      idsucursal: {
         type: Sequelize.STRING
       },
-      switch: {
-        type: Sequelize.STRING
-      },
-      ilumination: {
-        type: Sequelize.STRING
-      },
-      distribution: {
-        type: Sequelize.STRING
-      },
-      connection: {
-        type: Sequelize.STRING
+      cantidad: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Keyboards');
+    await queryInterface.dropTable('stocks');
   }
 };

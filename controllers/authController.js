@@ -2,10 +2,11 @@ const auathservice = require("../services/authService");
 const auathService = new auathservice();
 
 class auhtController {
+  
   static async login(req, res) {
-    const { email, password } = req.body;
-    const user = await auathService.login(email, password);
-    res.json({msg: "login", user});
+    const { usuario, password } = req.body;
+    const user = await auathService.login(usuario, password);
+    res.json({msg: "Login succes", user});
   }
 
   static async register(req, res) {

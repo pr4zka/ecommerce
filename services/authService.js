@@ -3,8 +3,8 @@ const { User } = require("../models");
 const { generateToken, verifyToken } = require("../helpers/jwt");
 
 class auathService {
-  async login(email, password) {
-    const user = await User.findOne({ where: { email } });
+  async login(usuario, password) {
+    const user = await User.findOne({ where: { usuario } });
     if (user && (await this.compare(password, user.password))) {
        return this.#getUserData(user);
     }
@@ -19,14 +19,12 @@ class auathService {
     };
   }
 
-  async getUserData(user) {
-    const userData = {
-      name: user.name,
-      lastname: user.lastname,
-      email: user.email,
-      id: user.id,
-    };
-  }
+  // async getUserData(user) {
+  //   return userData = {
+  //     usuario: user.usuario,
+  //     id: user.id,
+  //   };
+  // }
 
   async encript(password) {
     try {
@@ -48,8 +46,7 @@ class auathService {
   //genero un token y devuelvo los datos del usuario
   async #getUserData(user) {
     const userData = {
-      name: user.name,
-      email: user.email,
+      usaurio: user.usuario,
       id: user.id,
     };
 

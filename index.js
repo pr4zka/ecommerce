@@ -15,26 +15,12 @@ app.use(cors({
 
 //routes
 app.use(require('./routes/auht'));
-
-
-
-/*
-  shippingAddres: {
-        addres: { type: Sequelize.STRING, allowNull: false },
-        city: { type: Sequelize.STRING, allowNull: false },
-        distric: { type: Sequelize.STRING, allowNull: false },
-        phone: {type: Sequelize.NUMBER, allowNull: false}
-      },
-      totalPrice: { type: Sequelize.NUMBER, allowNull: false, default: 0.0 },
-      isPaid: {type: Sequelize.BOOLEAN, allowNull: false, default: false},
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-
-*/
-
-
+app.use(require('./routes/ciudades'))
+app.use(require('./routes/cargos'))
+app.use(require('./routes/empleados'))
+app.use(require('./routes/estadoCivil'))
+app.use(require('./routes/marcas'))
+app.use(require('./routes/mercaderias'))
 
 //server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
