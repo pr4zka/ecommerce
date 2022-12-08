@@ -1,0 +1,70 @@
+.cargos-container{
+    margin-top: 5rem;
+    position: relative;
+}
+
+.table-box{
+    border: 1px solid black;
+    height: auto;
+    width: 800px;
+}
+.table-list{
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 2rem;
+    border-bottom: 1px solid black;
+    background-color: rgb(4, 97, 8);
+}
+.table-list li{
+    color: white;
+    font-size: 20px;
+    list-style: none;
+    
+}
+.list-item{
+    border-bottom: 1px solid black;
+}
+
+.table-list-item{
+    display: flex;
+    flex-direction: row;
+    line-height: 3rem;
+    list-style: none;
+
+}
+.list-item:nth-child(odd){
+    background-color: rgb(159, 161, 159);
+}
+.add{
+    cursor: pointer;
+}
+
+.box-container{
+    position: absolute;
+    top: 90%;
+    left: 38%;
+    background-color: #ccc;
+    height: 300px;
+    border-radius: 10px;
+}
+.form-box{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+.label{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+input[type='number'],
+input[type='text']{
+    padding: 5px 0 5px 5px;
+    width: 300px;
+}
+.button-form{
+    margin-top: 1rem;
+    padding: 5px;
+}

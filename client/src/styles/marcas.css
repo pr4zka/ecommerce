@@ -1,0 +1,51 @@
+.marcas-container{
+    width: 1200px;
+}
+.table-box-marcas{
+    padding: 20px;
+}
+.table-list-marcas{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    list-style: none;
+    background-color: rgb(4, 97, 8);
+    padding: 25px;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+.buttons-title{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 40px 0 100px;
+}
+.title-marcas{
+    margin-top: 80px;
+    display: block;
+    text-align: center;
+}
+.button-agregar{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.button-agregar p{
+    margin-top: -15px;
+    font-size: 20px;
+}
+.button-volver{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: -12px;
+    text-decoration: none;
+    list-style: none;
+}
