@@ -3,8 +3,7 @@ import Button from '../formitems/Button';
 import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { GrAddCircle } from 'react-icons/gr';
-const AddTaskEstado = ({handleTaskAddition}) => {
-
+const AddTaskNotaRemision = ({ handleTaskAddition }) => {
     const [inputData, setInputData] = useState('');
     const [inputDesc, setInputDesc] = useState('');
     const [show, setShow] = useState(false);
@@ -15,7 +14,7 @@ const AddTaskEstado = ({handleTaskAddition}) => {
 
     const handleDescriptionChange = (e) => {
         setInputDesc(e.target.value);
-    };
+    }
 
     const handleAdd = (e) => {
         handleTaskAddition(inputData, inputDesc);
@@ -53,24 +52,18 @@ const AddTaskEstado = ({handleTaskAddition}) => {
                         cols="30"
                         rows="10"
                         maxLength='250'
-                        onChange={handleDescriptionChange}></textarea>
+                        onChange={handleDescriptionChange}
+                    ></textarea>
                     <Button onClick={() => {
                         if (inputData !== '') {
                             handleAdd();
                             setShow(false);
                         }
                     }}>Agregar</Button>
-                    {/* {
-                {handle.map((task) => (
-                    <Task task={task} key={task.id} />
-                ))}
-            } */}
                 </div>
-
-
             </div>
         </>
     )
 }
 
-export default AddTaskEstado
+export default AddTaskNotaRemision

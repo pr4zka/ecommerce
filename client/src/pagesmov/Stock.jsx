@@ -1,15 +1,12 @@
 import React from 'react'
+import AddTaskStock from '../components/AddTaskStock'
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import Tasks from '../tareas/AllTask';
 import { useEffect } from 'react';
 import { v4 as UUIDV4 } from 'uuid';
-import AddTaskMarcas from '../components/AddTaskMarcas';
 
-
-
-const EstadoCivil = () => {
-
+const Stock = () => {
     let allTasks = JSON.parse(localStorage.getItem('tasks'));
 
     const verifyTasks = () => {
@@ -19,6 +16,7 @@ const EstadoCivil = () => {
             return allTasks;
         }
     }
+
 
     const [tasks, setTasks] = useState(verifyTasks());
 
@@ -35,38 +33,32 @@ const EstadoCivil = () => {
             },
         ];
         setTasks(newTasks);
-
     }
     return (
         <>
-            <>
-                <div className='mt-12'>
-                    <h1 className='text-center text-2xl uppercase'>Estado Civil Mantener </h1>
-                    <div className='flex justify-center ml-7 pt-5'>
-                        <div className='flex flex-row'>
-                            <p className='text-xl hover:font-semibold mt-0.5'>Agregar</p>
-                            <AddTaskMarcas handleTaskAddition={handleTaskAddition} />
-                        </div>
-                        <div className='button-volver'>
-                            <NavLink to='home'><p className='text-xl hover:font-semibold pr-12'>Volver</p></NavLink>
-                        </div>
-
+            <div className='mt-12'>
+                <h1 className='text-center text-2xl uppercase'>Mantener Stock</h1>
+                <div className='flex justify-center ml-7 pt-5'>
+                    <div className='flex flex-row'>
+                        <p className='text-xl hover:font-semibold mt-0.5' >Agregar</p>
+                        <AddTaskStock handleTaskAddition={handleTaskAddition} />
                     </div>
-                    <div className='rounded-lg border border-sky-100 h-auto w-3/5'>
+                    <div className=''>
+                        <NavLink to='home'><p className='text-xl hover:font-semibold pr-12'>Volver</p></NavLink>
+                    </div>
+                </div>
+                <div className='rounded-lg border border-sky-100 h-auto w-3/5'>
                     <ul className='w-full p-3.5 flex flex-row border-b border-gray-90 bg-lime-600'>
                         <li>Codigo</li>
                         <li>Descripcion</li>
                         <li>Editar</li>
                         <li>Eliminar</li>
                     </ul>
-                        <Tasks tasks={tasks} />
-
-                    </div>
-
+                    <Tasks tasks={tasks} />
                 </div>
-            </>
+            </div>
         </>
     )
 }
 
-export default EstadoCivil
+export default Stock
