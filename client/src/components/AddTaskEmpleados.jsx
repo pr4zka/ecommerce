@@ -5,7 +5,7 @@ import {GrClose} from 'react-icons/gr';
 import {GrAddCircle} from 'react-icons/gr';
 import Task from '../task/Task';
 
-const AddTaskEmpleados = () => {
+const AddTaskEmpleados = ({handleTaskAddition}) => {
 
     const [inputData, setInputData] = useState('');
     const [inputDesc, setInputDesc] = useState('');

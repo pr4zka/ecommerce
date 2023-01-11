@@ -3,7 +3,7 @@ import Button from '../formitems/Button';
 import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { GrAddCircle } from 'react-icons/gr';
-const AddTaskMarcas = () => {
+const AddTaskMarcas = ({handleTaskAddition}) => {
     const [inputData, setInputData] = useState('');
     const [inputDesc, setInputDesc] = useState('');
     const [show, setShow] = useState(false);

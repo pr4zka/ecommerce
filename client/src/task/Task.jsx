@@ -1,6 +1,6 @@
 import React from 'react'
 import { BiTrash } from 'react-icons/bi';
-import '../styles/cargos.css';
+
 
 const Task = ({ task }) => {
     
@@ -11,15 +11,15 @@ const Task = ({ task }) => {
     }
 
     return (
-        <div className='list-item'>
-            <ul className='table-list-item'>
+        <div className='rounded-lg'>
+            <ul className='list-none flex items-center p-4 border-b border-gray-200 rounded-lg'>
                 <li>{task.codigo}</li>
                 <li>{task.description}</li>
                 <li>Editar</li>
                 <li><button
                     className="remove-task-btn"
                     onClick={() => {
-                        handleTaskDeletion(task.id);
+                        handleTaskDeletion(tasks.id);
                     }}
                 >
                    <BiTrash title='Remover'/>

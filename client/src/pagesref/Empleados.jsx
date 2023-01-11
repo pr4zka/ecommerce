@@ -5,7 +5,7 @@ import Tasks from '../tareas/AllTask';
 import { useEffect } from 'react';
 import { v4 as UUIDV4 } from 'uuid';
 import AddTaskEmpleados from '../components/AddTaskEmpleados';
-import '../styles/empleados.css';
+
 const Empleados = () => {
 
     let allTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -38,20 +38,20 @@ const Empleados = () => {
 
   return (
     <>
-            <div className='empleados-container'>
-                <h1 className='title-empleados'>Mantener Empleados</h1>
-                <div className='buttons-title'>
-                    <div className='button-agregar'>
-                    <p>Agregar</p>
+            <div className='mt-12'>
+                <h1 className='text-center text-2xl uppercase'>Mantener Empleados</h1>
+                <div className='flex justify-center ml-7 pt-5'>
+                    <div className='flex flex-row'>
+                    <p className='text-xl hover:font-semibold mt-0.5'>Agregar</p>
                     <AddTaskEmpleados handleTaskAddition={handleTaskAddition}/>
                     </div>
-                    <div className='button-volver'>
-                    <NavLink to='home'>Volver</NavLink>
+                    <div className=''>
+                    <NavLink to='home'><p className='text-xl hover:font-semibold pr-12'>Volver</p></NavLink>
                     </div>
                     
                 </div>
-                <div className='table-box-empleados'>
-                    <ul className='table-list-empleados'>
+                <div className='rounded-lg border border-sky-100 h-auto w-3/5'>
+                    <ul className='w-full p-3.5 flex flex-row border-b border-gray-90 bg-lime-600'>
                         <li>Nombre</li>
                         <li>Apellido</li>
                         <li>Ci</li>

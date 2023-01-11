@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { GrAddCircle } from 'react-icons/gr';
 
-const AddTaskMercaderias = () => {
+const AddTaskMercaderias = ({handleTaskAddition}) => {
 
     const [inputData, setInputData] = useState('');
     const [inputDesc, setInputDesc] = useState('');
