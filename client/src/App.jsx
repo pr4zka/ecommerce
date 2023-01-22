@@ -26,50 +26,50 @@ import Pedidos from "./pagesmov/Pedidos";
 import PresupuestoCompra from "./pagesmov/PresupuestoCompra";
 import Stock from "./pagesmov/Stock";
 import { ProtectedRoutes } from "./components/PotectedRoutes";
-import { useAuthStore } from './store/auth'
-
-
+import { useAuthStore } from "./store/auth";
+import { TaskContextProvider } from "./context/TaskContext";
 
 function App() {
-
-  const isAuth = useAuthStore(state => state.isAuth)
+  const isAuth = useAuthStore((state) => state.isAuth);
 
   return (
     <div>
-      <ShopContainer>     
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route element={<ProtectedRoutes isAllowed={isAuth} />}>
-            <Route path="/" element={<Navbar />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/cargos" element={<Cargos />} />
-            <Route path="/ciudades" element={<Ciudades />} />
-            <Route path="/empleados" element={<Empleados />} />
-            <Route path="/estados" element={<EstadoCivil />} />
-            <Route path="/marcas" element={<Marcas />} />
-            <Route path="/mercaderias" element={<Mercaderias />} />
-            <Route path="/motivoajuste" element={<MotivoAjuste />} />
-            <Route path="/nacionalidades" element={<Nacionalidades />} />
-            <Route path="/paises" element={<Paises />} />
-            <Route path="/proveedores" element={<Proveedores />} />
-            <Route path="/sucursales" element={<Sucursales />} />
-            <Route path="/ajustes" element={<Ajustes />} />
-            <Route path="/compras" element={<Compras />} />
-            <Route path="/cuentas-a-pagar" element={<Cuentas />} />
-            <Route path="/libro-compras" element={<LibroCompras />} />
-            <Route path="/nota-de-credito" element={<NotaCredito />} />
-            <Route path="/nota-de-remision" element={<NotaRemision />} />
-            <Route path="/orden-de-compra" element={<OrdenCompras />} />
-            <Route path="/pedidos" element={<Pedidos />} />
-            <Route
-              path="/presupuesto-de-compra"
-              element={<PresupuestoCompra />}
-            />
-            <Route path="*" element={<Home />} />
-            <Route path="/stock" element={<Stock />} />
-          </Route>
-        </Routes>
-      </ShopContainer>
+      <TaskContextProvider>
+        <ShopContainer>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoutes isAllowed={isAuth} />}>
+              <Route path="/" element={<Navbar />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/cargos" element={<Cargos />} />
+              <Route path="/ciudades" element={<Ciudades />} />
+              <Route path="/empleados" element={<Empleados />} />
+              <Route path="/estados" element={<EstadoCivil />} />
+              <Route path="/marcas" element={<Marcas />} />
+              <Route path="/mercaderias" element={<Mercaderias />} />
+              <Route path="/motivoajuste" element={<MotivoAjuste />} />
+              <Route path="/nacionalidades" element={<Nacionalidades />} />
+              <Route path="/paises" element={<Paises />} />
+              <Route path="/proveedores" element={<Proveedores />} />
+              <Route path="/sucursales" element={<Sucursales />} />
+              <Route path="/ajustes" element={<Ajustes />} />
+              <Route path="/compras" element={<Compras />} />
+              <Route path="/cuentas-a-pagar" element={<Cuentas />} />
+              <Route path="/libro-compras" element={<LibroCompras />} />
+              <Route path="/nota-de-credito" element={<NotaCredito />} />
+              <Route path="/nota-de-remision" element={<NotaRemision />} />
+              <Route path="/orden-de-compra" element={<OrdenCompras />} />
+              <Route path="/pedidos" element={<Pedidos />} />
+              <Route
+                path="/presupuesto-de-compra"
+                element={<PresupuestoCompra />}
+              />
+              <Route path="*" element={<Home />} />
+              <Route path="/stock" element={<Stock />} />
+            </Route>
+          </Routes>
+        </ShopContainer>
+      </TaskContextProvider>
     </div>
   );
 }
