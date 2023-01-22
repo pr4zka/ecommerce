@@ -17,9 +17,11 @@ const navigate = useNavigate()
 
   const ToggleRef = () =>{
     setShow(!show);
+    setShowMov(false);
   }
   const ToggleMov = () =>{
     setShowMov(!showMov);
+    setShow(false);
   }
 
   return (
