@@ -33,17 +33,17 @@ export const Cargos = () => {
             </NavLink>
           </div>
         </div>
-        <table className="border-collapse border-separate border-spacing-1 w-full border border-slate-500 ...">
+        <table className="w-4/6 table-auto">
           <thead>
             <tr>
-              <th className="border border-slate-600 bg-emerald-400">Codigo</th>
-              <th className="border border-slate-600 bg-emerald-400">
+              <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
+              <th className="border-slate-600 bg-emerald-400">
                 Descripcion
               </th>
-              <th className="border border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
+              <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                 Editar
               </th>
-              <th className="border border-slate-600 bg-emerald-400 hover:bg-red-700 cursor-pointer">
+              <th className="rounded-tr-lg border-slate-600 bg-emerald-400 hover:bg-red-700 cursor-pointer">
                 Eliminar
               </th>
             </tr>
@@ -51,9 +51,9 @@ export const Cargos = () => {
           <tbody>
             {tasks.map((task) => (
               <tr key={task.id}>
-                <td className="border border-slate-700">{task.id}</td>
-                <td className="border border-slate-700">{task.descripcion}</td>
-                <td className="border border-slate-700">
+                <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
+                <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
+                <td className="border pl-2 border-r-indigo-500">
                   <button
                     onClick={() => {
                    
@@ -63,7 +63,7 @@ export const Cargos = () => {
                     Editar
                   </button>
                 </td>
-                <td className="border border-slate-700">
+                <td className="pl-2">
                   <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
                     handleDelete(task.id);
                   }}>
