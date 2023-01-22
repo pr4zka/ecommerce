@@ -1,11 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
-
 import {NavLink} from 'react-router-dom'
+import { useAuthStore } from '../store/auth'
+import {useNavigate} from 'react-router-dom'
+
+
+
 const Navbar = () => {
+
+const logout = useAuthStore(state => state.logout)
+const navigate = useNavigate()
 
   const [show, setShow] = useState(false);
   const [showMov, setShowMov] = useState(false);
+
+
   const ToggleRef = () =>{
     setShow(!show);
   }
@@ -32,7 +41,10 @@ const Navbar = () => {
             className='ml-12 pr-3 p-1
             hover:text-slate-600
             hover:font-semibold hover:cursor-pointer ease-in-out duration-100'>
-              Salir del sistema
+             <button onClick={() => {
+              logout() 
+              navigate('/login')  
+            }}>Salir del Sistema</button>
             </li>
 
             {show === true ? (

@@ -5,9 +5,17 @@ const { generateToken, verifyToken } = require("../helpers/jwt");
 class auathService {
   async login(usuario, password) {
     const user = await User.findOne({ where: { usuario } });
-    if (user && (await this.compare(password, user.password))) {
-       return this.#getUserData(user);
+    if (!user) {
+      return new Error("Usuario no encontrado");
     }
+    const isMatch = await this.compare(password, user.password);
+    if (!isMatch) {
+      res.json({ msg: "Contraseña incorrecta" });
+      return;
+    }
+    const userData = await this.getUserData(user);
+    res.send(userData);
+    
   }
 
   async register(body) {
@@ -15,7 +23,7 @@ class auathService {
     const user = await User.create(body);
     return {
       message: "User created successfully",
-      data: user
+      data: user,
     };
   }
 
@@ -34,6 +42,7 @@ class auathService {
       console.log(error);
     }
   }
+
   async compare(password, hash) {
     try {
       const compare = await bcrypt.compare(password, hash);
@@ -44,7 +53,7 @@ class auathService {
   }
 
   //genero un token y devuelvo los datos del usuario
-  async #getUserData(user) {
+  async getUserData(user) {
     const userData = {
       usaurio: user.usuario,
       id: user.id,

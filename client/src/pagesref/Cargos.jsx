@@ -49,7 +49,7 @@ export const Cargos = () => {
                         <AddTaskCargos handleTaskAddition={handleTaskAddition} />
                     </div>
                     <div className=''>
-                        <NavLink to='home'><p className='text-xl hover:font-semibold pr-12'>Volver</p></NavLink>
+                        <NavLink to='/'><p className='text-xl hover:font-semibold pr-12'>Volver</p></NavLink>
                     </div>
 
                 </div>
