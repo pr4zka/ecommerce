@@ -4,9 +4,13 @@ import { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { GrAddCircle } from "react-icons/gr";
 import { Formik, Form } from "formik";
-import { createEmpleado } from "../api/empleados";
+import { useTasks } from '../context/TaskContext'
+
 
 const AddTaskEmpleados = () => {
+
+    const { createEmpleados } = useTasks();
+
   const [show, setShow] = useState(false);
 
   return (
@@ -51,7 +55,7 @@ const AddTaskEmpleados = () => {
             }}
             enableReinitialize={true}
             onSubmit={async (values, actions) => {
-              await createEmpleado(values);
+              await createEmpleados(values);
               actions.resetForm();
             }}
           >

@@ -7,12 +7,12 @@ import { useEffect } from 'react';
 
 const Ciudades = () => {
 
-  const { tasks, getCargos, handleDelete } =  useTasks();
+  const { getCiudad, ciudades } =  useTasks();
 
  
 
   useEffect(() => {
-    getCargos();
+     getCiudad();
   }, []);
 
   return (
@@ -46,10 +46,10 @@ const Ciudades = () => {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task) => (
-              <tr key={task.id}>
-                <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
-                <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
+            {ciudades.map((ciudad) => (
+              <tr key={ciudad.id}>
+                <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{ciudad.id}</td>
+                <td className="border pl-2 border-r-indigo-500">{ciudad.descripcion}</td>
                 <td className="border pl-2 border-r-indigo-500">
                   <button
                     onClick={() => {
@@ -62,7 +62,6 @@ const Ciudades = () => {
                 </td>
                 <td className="pl-2">
                   <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
-                    handleDelete(task.id);
                   }}>
                     Eliminar
                   </button>

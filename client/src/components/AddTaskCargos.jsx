@@ -72,7 +72,7 @@ const AddTaskCargos = () => {
                   type="text"
                   name="codigo"
                   value={id}
-                  placeholder="Ingrese el Codigo"
+                  placeholder={id + 1}
                   onChange={handleChange}
                 />
                 <label className="block">Descripcion</label>

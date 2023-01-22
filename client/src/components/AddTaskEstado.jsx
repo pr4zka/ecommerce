@@ -3,26 +3,16 @@ import Button from '../formitems/Button';
 import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { GrAddCircle } from 'react-icons/gr';
-const AddTaskEstado = ({handleTaskAddition}) => {
+import {Formik, Form} from 'formik'
+import {useTasks} from '../context/TaskContext'
 
-    const [inputData, setInputData] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
+const AddTaskEstado = () => {
+    
+    const {idEstadoCivil, createEstadoCivil} = useTasks();
+   
     const [show, setShow] = useState(false);
 
-    const handleInputChange = (e) => {
-        setInputData(e.target.value);
-    };
-
-    const handleDescriptionChange = (e) => {
-        setInputDesc(e.target.value);
-    };
-
-    const handleAdd = (e) => {
-        handleTaskAddition(inputData, inputDesc);
-        // limpiar inputs
-        setInputData('');
-        setInputDesc('');
-    }
+ 
     return (
         <>
             <div className='add-container'>
@@ -43,28 +33,51 @@ const AddTaskEstado = ({handleTaskAddition}) => {
                             setShow(false);
                         }}
                     />
-                    <input type="text"
-                        value={inputData}
-                        placeholder='Ingrese el Codigo'
-                        onChange={handleInputChange} />
-                    <textarea
-                        value={inputDesc}
-                        name="description"
-                        cols="30"
-                        rows="10"
-                        maxLength='250'
-                        onChange={handleDescriptionChange}></textarea>
-                    <Button onClick={() => {
-                        if (inputData !== '') {
-                            handleAdd();
-                            setShow(false);
-                        }
-                    }}>Agregar</Button>
-                    {/* {
-                {handle.map((task) => (
-                    <Task task={task} key={task.id} />
-                ))}
-            } */}
+                    <Formik
+            initialValues={{
+              codigo: `${idEstadoCivil}`,
+              descripcion: "",
+            }}
+            enableReinitialize={true}
+            onSubmit={async (values, actions) => {
+             createEstadoCivil(values);
+              actions.resetForm();
+            }}
+          >
+            {({ handleChange, handleSubmit, values }) => (
+              <Form
+                onSubmit={handleSubmit}
+                className="bg-slate-300 max-w-sm rounded-md p-4"
+              >
+                <label className="block">Codigo</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="codigo"
+                  value={idEstadoCivil}
+                  placeholder={idEstadoCivil + 1}
+                  onChange={handleChange}
+                />
+                <label className="block">Descripcion</label>
+                <textarea
+                  className="p-2 py-1 rounded-sm w-full"
+                  name="descripcion"
+                  rows="4"
+                  maxLength="250"
+                  value={values.descripcion}
+                  onChange={handleChange}
+                ></textarea>
+                <button
+                  className="block hover:bg-blue-500 rounded-sm p-2 py-1 w-full "
+                  onClick={() => {
+                    setShow(false);
+                  }}
+                >
+                  Agregar
+                </button>
+              </Form>
+            )}
+          </Formik>
                 </div>
 
 

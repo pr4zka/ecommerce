@@ -6,12 +6,13 @@ import AddTaskEmpleados from "../components/AddTaskEmpleados";
 import { useTasks } from "../context/TaskContext";
 
 const Empleados = () => {
-  const { empleados, getEmpleado } = useTasks();
+  const { empleados, getEmpleado, handleDeleteEmpleado } = useTasks();
 
   console.log(empleados);
 
   useEffect(() => {
-    getEmpleado();
+   const res = getEmpleado();
+    
   }, []);
 
   return (
@@ -87,7 +88,9 @@ const Empleados = () => {
                   <td className="border border-slate-700">
                     <button
                       className="hover:bg-red-500 cursor-pointer"
-                      onClick={() => {}}
+                      onClick={() => {
+                        handleDeleteEmpleado(employed.id)
+                      }}
                     >
                       Eliminar
                     </button>

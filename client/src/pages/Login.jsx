@@ -37,7 +37,7 @@ const handleLogin = async (values) => {
   return (
     <div className='background'>
       <div className="container-f">
-        <h2 className='f-t'>Incio al Sistema</h2>
+        <h2 className='f-t text-sky-700'>Incio al Sistema</h2>
         <Formik initialValues={{
           usuario: '', password: ''}} 
           onSubmit={values => handleLogin(values)
@@ -47,7 +47,7 @@ const handleLogin = async (values) => {
             <Field type='text' name='usuario' placeholder='Usuario' className='input i-l'/>
             <Field type={type} name='password' placeholder='Password' className='input i-l'/>
             <span className='password-toogle-icon-l' onClick={handleToggle}><Icon icon={icon}/></span>
-            <button className='btn-form' type='submit'>Iniciar Sesion</button>
+            <button className='btn-form hover:bg-green-400' type='submit'>Iniciar Sesion</button>
           </Form>
         </Formik>
       </div>
