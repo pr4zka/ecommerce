@@ -28,8 +28,8 @@ class empleadosContollers {
 
   static async createEmpleado(req, res) {
     try {
-      const { descripcion } = req.body;
-      const response = await empleados.create({ descripcion });
+      const { nombre, apellido, ci, estadoCivil, nacionalidad, ciudad, estado } = req.body;
+      const response = await empleados.create({ nombre, apellido, ci, estadoCivil, nacionalidad, ciudad, estado });
       res.status(200).json({
         status: true,
         message: "empleado creado",
@@ -43,10 +43,10 @@ class empleadosContollers {
   
   static async updateEmpleado(req, res) {
     try {
-      const { descripcion } = req.body;
+      const { body} = req;
       const { id } = req.params;
       const response = await empleados.update(
-        { descripcion },
+        { ...body },
         { where: { id } }
       );
       res.status(200).json({

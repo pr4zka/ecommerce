@@ -14,16 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   empleados.init({
-    idestadocivil: DataTypes.INTEGER,
-    idnacionalidad: DataTypes.INTEGER,
-    idcargo: DataTypes.INTEGER,
-    idciudad: DataTypes.INTEGER,
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
-    ci: DataTypes.INTEGER,
-    direccion: DataTypes.STRING,
-    telefono: DataTypes.INTEGER,
-    sexo: DataTypes.STRING,
+    ci: DataTypes.STRING,
+    estadoCivil: DataTypes.STRING,
+    nacionalidad: DataTypes.STRING,
+    ciudad: DataTypes.STRING,
     estado: DataTypes.STRING
   }, {
     sequelize,

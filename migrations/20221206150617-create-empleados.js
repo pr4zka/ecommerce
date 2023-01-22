@@ -9,18 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idestadocivil: {
-        type: Sequelize.INTEGER
-      },
-      idnacionalidad: {
-        type: Sequelize.INTEGER
-      },
-      idcargo: {
-        type: Sequelize.INTEGER
-      },
-      idciudad: {
-        type: Sequelize.INTEGER
-      },
       nombre: {
         type: Sequelize.STRING
       },
@@ -28,15 +16,15 @@ module.exports = {
         type: Sequelize.STRING
       },
       ci: {
-        type: Sequelize.INTEGER
-      },
-      direccion: {
         type: Sequelize.STRING
       },
-      telefono: {
-        type: Sequelize.INTEGER
+      estadoCivil: {
+        type: Sequelize.STRING
       },
-      sexo: {
+      nacionalidad: {
+        type: Sequelize.STRING
+      },
+      ciudad: {
         type: Sequelize.STRING
       },
       estado: {
@@ -56,3 +44,4 @@ module.exports = {
     await queryInterface.dropTable('empleados');
   }
 };
+;
