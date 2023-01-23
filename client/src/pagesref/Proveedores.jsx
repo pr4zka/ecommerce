@@ -11,7 +11,7 @@ const Proveedores = () => {
 
 
     useEffect(() => {
-      getCargos();
+     
     }, []);
 
   return (
@@ -32,10 +32,13 @@ const Proveedores = () => {
             <table className="w-4/6 table-auto">
                 <thead>
                     <tr>
-                        <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
-                        <th className="border-slate-600 bg-emerald-400">
-                            Descripcion
-                        </th>
+                    <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
+                        <th className="border-slate-600 bg-emerald-400">Pais</th>
+                        <th className="border-slate-600 bg-emerald-400">Ciudad</th>
+                        <th className="border-slate-600 bg-emerald-400">Razon Social</th>
+                        <th className="border-slate-600 bg-emerald-400">Ruc</th>
+                        <th className="border-slate-600 bg-emerald-400">Direccion</th>
+                        <th className="border-slate-600 bg-emerald-400">Telefono</th>
                         <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                             Editar
                         </th>
@@ -45,7 +48,7 @@ const Proveedores = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.map((task) => (
+                    {/* {tasks.map((task) => (
                         <tr key={task.id}>
                             <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
                             <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
@@ -67,7 +70,7 @@ const Proveedores = () => {
                                 </button>
                             </td>
                         </tr>
-                    ))}
+                    ))} */}
                 </tbody>
             </table>
         </div>

@@ -29,10 +29,15 @@ const NotaRemision = () => {
             <table className="w-4/6 table-auto">
                 <thead>
                     <tr>
-                        <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
-                        <th className="border-slate-600 bg-emerald-400">
-                            Descripcion
-                        </th>
+                    <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
+                        <th className="border-slate-600 bg-emerald-400">Fecha</th>
+                        <th className="border-slate-600 bg-emerald-400">Chofe</th>
+                        <th className="border-slate-600 bg-emerald-400">Vehiculo</th>
+                        <th className="border-slate-600 bg-emerald-400">Chapa</th>
+                        <th className="border-slate-600 bg-emerald-400">Estado</th>
+                        <th className="border-slate-600 bg-emerald-400">Sucursal</th>
+                        <th className="border-slate-600 bg-emerald-400">Destino</th>
+                        <th className="border-slate-600 bg-emerald-400">Origin</th>
                         <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                             Editar
                         </th>
