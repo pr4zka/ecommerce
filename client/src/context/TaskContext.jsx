@@ -4,6 +4,16 @@ import { getEmpleados, deleteEmpleado, createEmpleado } from "../api/empleados";
 import { getCiudades, deleteCiudad, createCiudad } from "../api/ciudades";
 import { createEstado, getEstadoCivil, deleteEstado } from "../api/estadoCivil";
 import { createMarca, getMarcas, deleteMarca } from "../api/marcas";
+import {createAjusteMantener, getAjusteMantener, deleteAjusteMantener } from '../api/ajustaMantener'
+import {createCompras, getCompras, deleteCompras, getComprasById, updateCompras} from '../api/vs_compras'
+
+
+import {
+  createMercaderia,
+  getMercaderias,
+  updateMercaderia,
+  deleteMercaderia,
+} from "../api/mercaderias";
 
 export const TaskContext = createContext();
 
@@ -140,6 +150,102 @@ export const TaskContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+  //mercaderias
+  const [mercaderias, setMercaderia] = useState([]);
+  const [idMercaderia, setIdMercaderia] = useState([]);
+
+
+  const createMercaderias = async (values) => {
+    try {
+      console.log(values)
+      const res = await createMercaderia(values);
+      console.log(res)
+      setMercaderia([...mercaderias, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function getMercaderia() {
+    const response = await getMercaderias();
+    if (response.data.data.length > 0) {
+      setIdMercaderia(response.data.data[response.data.data.length - 1].id + 1);
+    } else {
+      setIdMercaderia(1);
+    }
+    setMercaderia(response.data.data);
+  }
+  const handleDeleteMercaderia = async (id) => {
+    try {
+      await deleteMercaderia(id);
+      setMercaderia(mercaderias.filter((mercaderia) => mercaderia.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //ajuste mantener
+  const [ajustes, setAjuste] = useState([]);
+  const [idAjuste, setIdAjuste] = useState([]);
+
+
+  const createAjuste_Mantener = async (values) => {
+    try {
+      const res = await createAjusteMantener(values);
+      setAjuste([...ajustes, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  async function getAjuste() {
+    const response = await getAjusteMantener();
+    if (response.data.data.length > 0) {
+      setIdAjuste(response.data.data[response.data.data.length - 1].id + 1);
+    } else {
+      setIdAjuste(1);
+    }
+    setAjuste(response.data.data);
+  }
+  const handleDeleteAjuste = async (id) => {
+    try {
+      await deleteAjusteMantener(id);
+      setAjuste(ajustes.filter((ajuste) => ajuste.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //compras
+  const [compras, setCompra] = useState([]);
+  const [idCompra, setIdCompra] = useState([]);
+
+  const createCompra = async (values) => {
+    try {
+      const res = await createCompras(values);
+      setCompra([...compras, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  async function getCompra() {
+    const response = await getCompras();
+    if (response.data.data.length > 0) {
+      setIdCompra(response.data.data[response.data.data.length - 1].id + 1);
+    } else {
+      setIdCompra(1);
+    }
+    setCompra(response.data.data);
+  }
+  const handleDeleteCompra = async (id) => {
+    try {
+      await deleteCompras(id);
+      setCompra(compras.filter((compra) => compra.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <TaskContext.Provider
@@ -166,6 +272,25 @@ export const TaskContextProvider = ({ children }) => {
         marcas,
         idMarca,
         handleDeleteMarca,
+        createMercaderias,
+        getMercaderia,
+        mercaderias,
+        idMercaderia,
+        handleDeleteMercaderia,
+        //ajuste mantener
+        createAjuste_Mantener,
+        getAjuste,
+        deleteAjusteMantener,
+        ajustes,
+        idAjuste,
+        handleDeleteAjuste,
+        //compras
+        createCompra,
+        getCompra,
+        deleteCompras,
+        compras,
+        idCompra,
+        handleDeleteCompra,
       }}
     >
       {children}

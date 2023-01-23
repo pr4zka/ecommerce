@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   vs_ajustes.init({
-    idsucursal: DataTypes.INTEGER,
     sucursal: DataTypes.STRING,
     tipoajuste: DataTypes.STRING,
     observacion: DataTypes.STRING,

@@ -25,6 +25,8 @@ app.use(require("./routes/estadoCivil"));
 app.use(require("./routes/marcas"));
 app.use(require("./routes/mercaderias"));
 app.use(require("./routes/paises"));
+app.use(require("./routes/ajusteMantener"));
+app.use(require("./routes/vs_compras"));
 
 //server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

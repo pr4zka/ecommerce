@@ -1,10 +1,10 @@
-const { mercaderias } = require("../models");
+const { vs_ajustes } = require("../models");
 
 class mercaderiasContollers {
 
 
-  static async getMercaderia(req, res) {
-    const response = await mercaderias.findAll();
+  static async getAjuste(req, res) {
+    const response = await vs_ajustes.findAll();
     res.status(200).json({
       status: true,
       message: "mercaderias encontradas",
@@ -12,13 +12,13 @@ class mercaderiasContollers {
     });
   }
 
-  static async getMercaderiaById(req, res) {
+  static async getAjusteById(req, res) {
     try {
       const { id } = req.params;
-      const response = await mercaderias.findByPk(id);
+      const response = await vs_ajustes.findByPk(id);
       res.status(200).json({
         status: true,
-        message: "mercaderia eocntrado",
+        message: "ajuste eocntrado",
         data: response,
       });
     } catch (error) {
@@ -26,14 +26,13 @@ class mercaderiasContollers {
     }
   }
 
-  static async createMercaderia(req, res) {
+  static async createAjuste(req, res) {
     try {
-      const { descripcion, estado, preciocompra, precioventa, idtipoimpuesto } = req.body;
-      console.log(req.body)
-      const response = await mercaderias.create({ descripcion, estado, preciocompra, precioventa, idtipoimpuesto });
+      const { sucursal, tipoajuste, observacion, estado} = req.body;
+      const response = await vs_ajustes.create({ sucursal, tipoajuste, observacion, estado});
       res.status(200).json({
         status: true,
-        message: "mercaderia creada",
+        message: "ajuste creado",
         data: response,
       });
     } catch (error) {
@@ -42,17 +41,17 @@ class mercaderiasContollers {
     }
   }
   
-  static async updateMercaderia(req, res) {
+  static async updateAjuste(req, res) {
     try {
       const { body } = req.body;
       const { id } = req.params;
-      const response = await mercaderias.update(
+      const response = await vs_ajustes.update(
         { ...body },
         { where: { id } }
       );
       res.status(200).json({
         status: true,
-        message: "mercaderia modificado",
+        message: "ajuste modificado",
         data: response,
       });
     } catch (error) {
@@ -61,13 +60,13 @@ class mercaderiasContollers {
     }
   }
 
-  static async deleteMercaderia(req, res) {
+  static async deleteAjuste(req, res) {
     try {
       const { id } = req.params;
-      const response = await mercaderias.destroy({ where: { id } });
+      const response = await vs_ajustes.destroy({ where: { id } });
       res.status(200).json({
         status: true,
-        message: "mercaderia eliminado",
+        message: "ajuste eliminado",
         data: response,
       });
     } catch (error) {

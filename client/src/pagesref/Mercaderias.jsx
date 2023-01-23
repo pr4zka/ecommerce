@@ -6,11 +6,11 @@ import AddTaskMercaderias from '../components/AddTaskMercaderias';
 
 
 const Mercaderias = () => {
-    const { tasks, getCargos, handleDelete } =  useTasks();
-
+    
+    const {mercaderias, getMercaderia } =  useTasks();
 
     useEffect(() => {
-      getCargos();
+      getMercaderia();
     }, []);
 
     return (
@@ -32,9 +32,10 @@ const Mercaderias = () => {
                 <thead>
                     <tr>
                         <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
-                        <th className="border-slate-600 bg-emerald-400">
-                            Descripcion
-                        </th>
+                        <th className="border-slate-600 bg-emerald-400"> Tipo Impuesto </th>
+                        <th className="border-slate-600 bg-emerald-400"> Descripcion </th>
+                        <th className="border-slate-600 bg-emerald-400"> Precio Compra </th>
+                        <th className="border-slate-600 bg-emerald-400"> Precio Venta </th>
                         <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                             Editar
                         </th>
@@ -44,10 +45,14 @@ const Mercaderias = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.map((task) => (
-                        <tr key={task.id}>
-                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
-                            <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
+                    {mercaderias.map((mercaderia) => (
+                        <tr key={mercaderia.id}>
+                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{mercaderia.id}</td>
+                            <td className="border pl-2 border-r-indigo-500">{mercaderia.idtipoimpuesto}</td>
+                            <td className="border pl-2 border-r-indigo-500">{mercaderia.descripcion}</td>
+                            <td className="border pl-2 border-r-indigo-500">{mercaderia.preciocompra}</td>
+                            <td className="border pl-2 border-r-indigo-500">{mercaderia.precioventa}</td>
+                            <td className="border pl-2 border-r-indigo-500">{mercaderia.estado}</td>
                             <td className="border pl-2 border-r-indigo-500">
                                 <button
                                     onClick={() => {
@@ -60,7 +65,7 @@ const Mercaderias = () => {
                             </td>
                             <td className="pl-2">
                                 <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
-                                    handleDelete(task.id);
+                                  console.log(mercaderia.id)
                                 }}>
                                     Eliminar
                                 </button>

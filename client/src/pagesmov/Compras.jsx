@@ -8,11 +8,10 @@ import { useEffect } from 'react';
 
 const Compras = () => {
 
-  const { tasks, getCargos, handleDelete } =  useTasks();
-
+  const { getCompra, compras, handleDeleteCompra} =  useTasks();
 
     useEffect(() => {
-      getCargos();
+      getCompra();
     }, []);
 
   return (
@@ -34,9 +33,11 @@ const Compras = () => {
                 <thead>
                     <tr>
                         <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
-                        <th className="border-slate-600 bg-emerald-400">
-                            Descripcion
-                        </th>
+                        <th className="border-slate-600 bg-emerald-400">Sucursal</th>
+                        <th className="border-slate-600 bg-emerald-400">Proveedor</th>
+                        <th className="border-slate-600 bg-emerald-400">Fecha</th>
+                        <th className="border-slate-600 bg-emerald-400">Total</th>
+                        <th className="border-slate-600 bg-emerald-400">Estado</th>
                         <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                             Editar
                         </th>
@@ -46,10 +47,14 @@ const Compras = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.map((task) => (
-                        <tr key={task.id}>
-                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
-                            <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
+                    {compras.map((items) => (
+                        <tr key={items.id}>
+                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{items.id}</td>
+                            <td className="border pl-2 border-r-indigo-500">{items.sucursal}</td>
+                            <td className="border pl-2 border-r-indigo-500">{items.proveedor}</td>
+                            <td className="border pl-2 border-r-indigo-500">{items.fecha}</td>
+                            <td className="border pl-2 border-r-indigo-500">{items.total}</td>
+                            <td className="border pl-2 border-r-indigo-500">{items.estado}</td>
                             <td className="border pl-2 border-r-indigo-500">
                                 <button
                                     onClick={() => {
@@ -62,7 +67,7 @@ const Compras = () => {
                             </td>
                             <td className="pl-2">
                                 <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
-                                    handleDelete(task.id);
+                                    handleDeleteCompra(items.id);
                                 }}>
                                     Eliminar
                                 </button>

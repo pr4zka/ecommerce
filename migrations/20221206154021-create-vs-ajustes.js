@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idsucursal: {
-        type: Sequelize.INTEGER
-      },
       sucursal: {
         type: Sequelize.STRING
       },

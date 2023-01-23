@@ -2,24 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('mercaderias', {
+    await queryInterface.createTable('vs_compras', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      idtipoimpuesto: {
-        type: Sequelize.INTEGER
-      },
-      descripcion: {
+      sucursal: {
         type: Sequelize.STRING
       },
-      preciocompra: {
-        type: Sequelize.INTEGER
+      proveedor: {
+        type: Sequelize.STRING
       },
-      precioventa: {
-        type: Sequelize.INTEGER
+      fecha: {
+        type: Sequelize.DATEONLY
+      },
+      total: {
+        type: Sequelize.STRING
       },
       estado: {
         type: Sequelize.STRING
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('mercaderias');
+    await queryInterface.dropTable('vs_compras');
   }
 };

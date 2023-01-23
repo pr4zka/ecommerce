@@ -1,72 +1,127 @@
-import React from 'react';
-import Button from '../formitems/Button';
-import { useState } from 'react';
-import { GrClose } from 'react-icons/gr';
-import { GrAddCircle } from 'react-icons/gr';
+import React from "react";
+import Button from "../formitems/Button";
+import { useState } from "react";
+import { GrClose } from "react-icons/gr";
+import { GrAddCircle } from "react-icons/gr";
+import { Formik, Form } from "formik";
+import { useTasks } from "../context/TaskContext";
 
-const AddTasksAjustes = ({handleTaskAddition}) => {
-    const [inputData, setInputData] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
-    const [show, setShow] = useState(false);
+const AddTasksAjustes = () => {
+  const { createAjuste_Mantener, idAjuste } = useTasks();
 
-    const handleInputChange = (e) =>{
-        setInputData(e.target.value);
-    };
-
-    const handleDescriptionChange = (e) =>{
-        setInputDesc(e.target.value);
-    }
-
-    const handleAdd = (e) =>{
-        handleTaskAddition(inputData, inputDesc);
-        // limpiar inputs
-        setInputData('');
-        setInputDesc('');
-    }
-
+  const [show, setShow] = useState(false);
 
   return (
     <>
-    <div className='add-container'>
-            <Button onClick={()=>{
-                setShow(!show);
-            }}><GrAddCircle/></Button>
-        </div>
-        <div className='modal' style={show ? {
-            display: 'flex',
-        } : {
-            display: 'none',
-        }}
-        onClick={(e) =>(e.target.className === 'modal' ? setShow(false) : {})}
+      <div className="add-container">
+        <Button
+          onClick={() => {
+            setShow(!show);
+          }}
         >
-            <div className='input-add-container'>
-                <GrClose 
-                onClick={()=>{
-                    setShow(false);
-                }}
+          <GrAddCircle />
+        </Button>
+      </div>
+      <div
+        className="modal"
+        style={
+          show
+            ? {
+                display: "flex",
+              }
+            : {
+                display: "none",
+              }
+        }
+        onClick={(e) => (e.target.className === "modal" ? setShow(false) : {})}
+      >
+        <div className="input-add-container">
+          <GrClose
+            onClick={() => {
+              setShow(false);
+            }}
+          />
+          <Formik
+            initialValues={{
+              codigo: `${idAjuste}`,
+              sucursal: "",
+              tipoajuste: "",
+              observacion: "",
+              estado: "",
+            }}
+            enableReinitialize={true}
+            onSubmit={async (values, actions) => {
+                createAjuste_Mantener(values)
+                actions.resetForm();
+            }}
+          >
+            {({ handleChange, handleSubmit, values }) => (
+              <Form
+                onSubmit={handleSubmit}
+                className="bg-slate-300 max-w-sm rounded-md p-4"
+              >
+                <label className="block">Codigo</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="codigo"
+                  value={values.codigo}
+                  placeholder={idAjuste}
+                  onChange={handleChange}
                 />
-                <input type="text"
-                value={inputData}
-                placeholder='Ingrese el Codigo'
-                onChange={handleInputChange}/>
-                <textarea
-                value={inputDesc}
-                name="description"
-                cols="30"
-                rows="10"
-                maxLength='250'
-                onChange={handleDescriptionChange}
-                ></textarea>
-                <Button onClick={()=>{
-                    if(inputData !== ''){
-                        handleAdd();
-                        setShow(false);
-                    }
-                }}>Agregar</Button>
-            </div>
+                <label className="block">Sucursal</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="sucursal"
+                  value={values.sucursal}
+                  placeholder={"Sucursal"}
+                  onChange={handleChange}
+                />
+                <label className="block">Tipo Ajuste</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="tipoajuste"
+                  value={values.tipoajuste}
+                  placeholder={"Tipo Ajuste"}
+                  onChange={handleChange}
+                />
+                <label className="block">Observacion</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="observacion"
+                  value={values.observacion}
+                  placeholder={"Observacion"}
+                  onChange={handleChange}
+                />
+
+                <label className="block">Estado</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="estado"
+                  value={values.estado}
+                  placeholder={"Estado"}
+                  onChange={handleChange}
+                />
+                <button
+                  className="block hover:bg-blue-500 rounded-sm p-2 py-1 w-full "
+                  type="submit"
+                  onClick={() => {
+                    setShow(false);
+                  }}
+                >
+                  Agregar
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default AddTasksAjustes;

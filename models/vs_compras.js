@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class mercaderias extends Model {
+  class vs_compras extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-     
-      mercaderias.belongsTo(models.tipo_impuesto, {
-        foreignKey: 'idtipoimpuesto'
-      });
     }
   }
-  mercaderias.init({
-    idtipoimpuesto: DataTypes.INTEGER,
-    descripcion: DataTypes.STRING,
-    preciocompra: DataTypes.INTEGER,
-    precioventa: DataTypes.INTEGER,
+  vs_compras.init({
+    sucursal: DataTypes.STRING,
+    proveedor: DataTypes.STRING,
+    fecha: DataTypes.DATEONLY,
+    total: DataTypes.STRING,
     estado: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'mercaderias',
+    modelName: 'vs_compras',
   });
-  return mercaderias;
+  return vs_compras;
 };

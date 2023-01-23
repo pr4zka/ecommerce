@@ -1,70 +1,136 @@
-import React from 'react'
-import Button from '../formitems/Button';
-import { useState } from 'react';
-import { GrClose } from 'react-icons/gr';
-import { GrAddCircle } from 'react-icons/gr';
+import React from "react";
+import Button from "../formitems/Button";
+import { useState } from "react";
+import { GrClose } from "react-icons/gr";
+import { GrAddCircle } from "react-icons/gr";
+import { Formik, Form } from "formik";
+import { useTasks } from "../context/TaskContext";
 
-const AddTaskCompras = ({handleTaskAddition}) => {
-    const [inputData, setInputData] = useState('');
-    const [inputDesc, setInputDesc] = useState('');
-    const [show, setShow] = useState(false);
+const AddTaskCompras = () => {
+  const { createCompra, idCompra } = useTasks();
 
-    const handleInputChange = (e) => {
-        setInputData(e.target.value);
-    };
+  const [show, setShow] = useState(false);
 
-    const handleDescriptionChange = (e) => {
-        setInputDesc(e.target.value);
-    }
-
-    const handleAdd = (e) => {
-        handleTaskAddition(inputData, inputDesc);
-        // limpiar inputs
-        setInputData('');
-        setInputDesc('');
-    }
-    return (
-        <>
-            <div className='add-container'>
-                <Button onClick={() => {
-                    setShow(!show);
-                }}><GrAddCircle /></Button>
-            </div>
-            <div className='modal' style={show ? {
-                display: 'flex',
-            } : {
-                display: 'none',
+  return (
+    <>
+      <div className="add-container">
+        <Button
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          <GrAddCircle />
+        </Button>
+      </div>
+      <div
+        className="modal"
+        style={
+          show
+            ? {
+                display: "flex",
+              }
+            : {
+                display: "none",
+              }
+        }
+        onClick={(e) => (e.target.className === "modal" ? setShow(false) : {})}
+      >
+        <div className="input-add-container">
+          <GrClose
+            onClick={() => {
+              setShow(false);
             }}
-                onClick={(e) => (e.target.className === 'modal' ? setShow(false) : {})}
-            >
-                <div className='input-add-container'>
-                    <GrClose
-                        onClick={() => {
-                            setShow(false);
-                        }}
-                    />
-                    <input type="text"
-                        value={inputData}
-                        placeholder='Ingrese el Codigo'
-                        onChange={handleInputChange} />
-                    <textarea
-                        value={inputDesc}
-                        name="description"
-                        cols="30"
-                        rows="10"
-                        maxLength='250'
-                        onChange={handleDescriptionChange}
-                    ></textarea>
-                    <Button onClick={() => {
-                        if (inputData !== '') {
-                            handleAdd();
-                            setShow(false);
-                        }
-                    }}>Agregar</Button>
-                </div>
-            </div>
-        </>
-    )
-}
+          />
+          <Formik
+            initialValues={{
+              codigo: `${idCompra}`,
+              sucursal: "",
+              proveedor: "",
+              fecha: "",
+              total: "",
+              estado: "",
+            }}
+            enableReinitialize={true}
+            onSubmit={async (values, actions) => {
+              createCompra(values);
+              actions.resetForm();
+            }}
+          >
+            {({ handleChange, handleSubmit, values }) => (
+              <Form
+                onSubmit={handleSubmit}
+                className="bg-slate-300 max-w-sm rounded-md p-4"
+              >
+                <label className="block">Codigo</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="codigo"
+                  value={values.codigo}
+                  placeholder={idCompra}
+                  onChange={handleChange}
+                />
+                <label className="block">Sucursal</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="sucursal"
+                  value={values.sucursal}
+                  placeholder={"Sucursal"}
+                  onChange={handleChange}
+                />
+                <label className="block">Proveedor</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="proveedor"
+                  value={values.proveedor}
+                  placeholder={"proveedor"}
+                  onChange={handleChange}
+                />
+                <label className="block">Fecha</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="date"
+                  name="fecha"
+                  value={values.fecha}
+                  placeholder={"Fecha"}
+                  onChange={handleChange}
+                />
+                <label className="block">Total</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="total"
+                  value={values.total}
+                  placeholder={"Total"}
+                  onChange={handleChange}
+                />
+                <label className="block">Estado</label>
+                <input
+                  className="p-2 py-1 rounded-sm w-full"
+                  type="text"
+                  name="estado"
+                  value={values.estado}
+                  placeholder={"Estado"}
+                  onChange={handleChange}
+                />
+                <button
+                  className="block hover:bg-blue-500 rounded-sm p-2 py-1 w-full"
+                  type="submit"
+                  onClick={() => {
+                    setShow(false);
+                  }}
+                >
+                  Agregar
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default AddTaskCompras
+export default AddTaskCompras;
