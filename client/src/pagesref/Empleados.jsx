@@ -11,8 +11,7 @@ const Empleados = () => {
   console.log(empleados);
 
   useEffect(() => {
-   const res = getEmpleado();
-    
+    getEmpleado(); 
   }, []);
 
   return (
@@ -31,7 +30,7 @@ const Empleados = () => {
           </div>
         </div>
         <div className="rounded-lg border border-sky-100 h-auto w-3/5">
-          <table className="border-collapse border-separate border-spacing-1 w-full border border-slate-500 ...">
+          <table className="border-collapse  border-spacing-1 w-full border border-slate-500 ...">
             <thead>
               <tr>
                 <th className="border border-slate-600 bg-emerald-400">

@@ -2,8 +2,8 @@ import { createContext, useContext, useState } from "react";
 import { getAllCargos, deleteCargo, createCargo } from "../api/cargos";
 import { getEmpleados, deleteEmpleado, createEmpleado } from "../api/empleados";
 import { getCiudades, deleteCiudad, createCiudad } from "../api/ciudades";
-import {createEstado, getEstadoCivil, deleteEstado} from '../api/estadoCivil'
-
+import { createEstado, getEstadoCivil, deleteEstado } from "../api/estadoCivil";
+import { createMarca, getMarcas, deleteMarca } from "../api/marcas";
 
 export const TaskContext = createContext();
 
@@ -65,52 +65,81 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
-//ciudades
-const [ciudades, setCiudad] = useState([]);
-const [idCiudad, setId] = useState("");
+  //ciudades
+  const [ciudades, setCiudad] = useState([]);
+  const [idCiudad, setId] = useState("");
 
-const createCiudades = async (values) => {
-  try {
-    const res = await createCiudad(values);
-    setCiudad([...ciudades, res.data.data]);
-  } catch (error) {
-    console.log(error);
-  }
-};
+  const createCiudades = async (values) => {
+    try {
+      const res = await createCiudad(values);
+      setCiudad([...ciudades, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-
-async function getCiudad() {
-   const response = await getCiudades(); 
+  async function getCiudad() {
+    const response = await getCiudades();
     setId(response.data.data[response.data.data.length - 1].id + 1);
     setCiudad(response.data.data);
-}
-//estadoCivil
-const [estadoCivil, setEstadoCivil] = useState([]);
-const [idEstadoCivil, setIdEstadoCivil] = useState([]);
-
-const createEstadoCivil = async (values) => {
-  try {
-    const res = await createEstado(values);
-    setEstadoCivil([...estadoCivil, res.data.data]);
-  } catch (error) {
-    console.log(error);
   }
-};
+  //estadoCivil
+  const [estadoCivil, setEstadoCivil] = useState([]);
+  const [idEstadoCivil, setIdEstadoCivil] = useState([]);
 
-async function getEstado() {
-  const response = await getEstadoCivil();
-  setIdEstadoCivil(response.data.data[response.data.data.length - 1].id + 1);
-  setEstadoCivil(response.data.data);
-}
+  const createEstadoCivil = async (values) => {
+    try {
+      const res = await createEstado(values);
+      setEstadoCivil([...estadoCivil, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-const handleDeleteEstadoCivil = async (id) => {
-  try {
-    await deleteEstado(id);
-    setEstadoCivil(estadoCivil.filter((estado) => estado.id !== id));
-  } catch (error) {
-    console.log(error);
+  async function getEstado() {
+    const response = await getEstadoCivil();
+    setIdEstadoCivil(response.data.data[response.data.data.length - 1].id + 1);
+    setEstadoCivil(response.data.data);
   }
-};
+
+  const handleDeleteEstadoCivil = async (id) => {
+    try {
+      await deleteEstado(id);
+      setEstadoCivil(estadoCivil.filter((estado) => estado.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //marcas
+  const [marcas, setMarca] = useState([]);
+  const [idMarca, setIdMarca] = useState([]);
+
+  const createMarcas = async (values) => {
+    try {
+      const res = await createMarca(values);
+      setMarca([...marcas, res.data.data]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function getMarca() {
+    const response = await getMarcas();
+    if (response.data.data.length > 0) {
+      setIdMarca(response.data.data[response.data.data.length - 1].id + 1);
+    } else {
+      setIdMarca(1);
+    }
+    setMarca(response.data.data);
+  }
+  const handleDeleteMarca = async (id) => {
+    try {
+      await deleteMarca(id);
+      setMarca(marcas.filter((marca) => marca.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <TaskContext.Provider
@@ -131,7 +160,12 @@ const handleDeleteEstadoCivil = async (id) => {
         getEstado,
         estadoCivil,
         idEstadoCivil,
-        handleDeleteEstadoCivil
+        handleDeleteEstadoCivil,
+        createMarcas,
+        getMarca,
+        marcas,
+        idMarca,
+        handleDeleteMarca,
       }}
     >
       {children}
