@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { getAllCargos, deleteCargo, createCargo } from "../api/cargos";
 import { getEmpleados, deleteEmpleado, createEmpleado } from "../api/empleados";
-import { getCiudades, deleteCiudad, createCiudad } from "../api/ciudades";
+import { getCiudades, deleteCiudad, createCiudad, updateCiudad, getCiudadById } from "../api/ciudades";
 import { createEstado, getEstadoCivil, deleteEstado } from "../api/estadoCivil";
 import { createMarca, getMarcas, deleteMarca } from "../api/marcas";
 import {createAjusteMantener, getAjusteMantener, deleteAjusteMantener } from '../api/ajustaMantener'
@@ -77,7 +77,7 @@ export const TaskContextProvider = ({ children }) => {
 
   //ciudades
   const [ciudades, setCiudad] = useState([]);
-  const [idCiudad, setId] = useState("");
+  const [idCiudad, setCiudadId] = useState(0);
 
   const createCiudades = async (values) => {
     try {
@@ -90,12 +90,37 @@ export const TaskContextProvider = ({ children }) => {
 
   async function getCiudad() {
     const response = await getCiudades();
-    setId(response.data.data[response.data.data.length - 1].id + 1);
+    setCiudadId(response.data.data[response.data.data.length - 1].Ciu_id + 1);
     setCiudad(response.data.data);
   }
+
+  async function getCiuadadId(id){
+    const response = await getCiudadById(id);
+    return response.data.data;
+  }
+  async function deleteCiudades(id){
+    try {
+      await deleteCiudad(id);
+      setCiudad(ciudades.filter((ciudad) => ciudad.Ciu_id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function updateCiudades(id, values){
+    try {
+      const res = await updateCiudad(id, values);
+      console.log('actualizado', res)
+      // setCiudad(ciudades.filter((ciudad) => ciudad.Ciu_id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+    
+
   //estadoCivil
   const [estadoCivil, setEstadoCivil] = useState([]);
-  const [idEstadoCivil, setIdEstadoCivil] = useState([]);
+  const [idEstadoCivil, setIdEstadoCivil] = useState(null);
 
   const createEstadoCivil = async (values) => {
     try {
@@ -260,7 +285,10 @@ export const TaskContextProvider = ({ children }) => {
         createEmpleados,
         createCiudades,
         getCiudad,
+        getCiuadadId,
         ciudades,
+        deleteCiudades,
+        updateCiudades,
         idCiudad,
         createEstadoCivil,
         getEstado,

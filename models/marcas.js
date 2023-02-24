@@ -1,23 +1,31 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class marcas extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  marcas.init({
-    descripcion: DataTypes.STRING
-  }, {
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../database/db");
+const marcas = sequelize.define(
+  "marcas",
+  {
+    Mar_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    descripcion: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+  },
+  {
     sequelize,
-    modelName: 'marcas',
-  });
-  return marcas;
-};
+    tableName: "marcas",
+    timestamps: true,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [{ name: "Mar_id" }],
+      },
+    ],
+  }
+);
+module.exports = marcas;

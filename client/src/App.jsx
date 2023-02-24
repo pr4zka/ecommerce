@@ -6,6 +6,7 @@ import { Home } from "./pages/Home";
 import Navbar from "./components/Navbar";
 import { Cargos } from "./pagesref/Cargos";
 import Ciudades from "./pagesref/Ciudades";
+import CiudadesForm from "./pagesref/CiuadesForm";
 import Empleados from "./pagesref/Empleados";
 import EstadoCivil from "./pagesref/EstadoCivil";
 import Marcas from "./pagesref/Marcas";
@@ -30,8 +31,9 @@ import { useAuthStore } from "./store/auth";
 import { TaskContextProvider } from "./context/TaskContext";
 
 function App() {
-  const isAuth = useAuthStore((state) => state.isAuth);
 
+  const isAuth = useAuthStore((state) => state.isAuth);
+ 
   return (
     <div>
       <TaskContextProvider>
@@ -42,7 +44,11 @@ function App() {
               <Route path="/" element={<Navbar />} />
               <Route path="/home" element={<Home />} />
               <Route path="/cargos" element={<Cargos />} />
+              
               <Route path="/ciudades" element={<Ciudades />} />
+              <Route path="/edit/ciudades/:id" element={<CiudadesForm />} />
+              <Route path="/new/ciudades" element={<CiudadesForm />} />
+
               <Route path="/empleados" element={<Empleados />} />
               <Route path="/estados" element={<EstadoCivil />} />
               <Route path="/marcas" element={<Marcas />} />

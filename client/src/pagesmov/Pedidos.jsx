@@ -2,15 +2,12 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { useTasks } from "../context/TaskContext";
 import { useEffect } from 'react';
-import AddTaskPedidos from '../components/AddTaskPedidos'
 
 
 const Pedidos = () => {
-    const { tasks, getCargos, handleDelete } =  useTasks();
-
+    
 
     useEffect(() => {
-      getCargos();
     }, []);
     return (
         <>
@@ -19,7 +16,6 @@ const Pedidos = () => {
             <div className="flex justify-center ml-7 pt-5 ">
                 <div className="flex flex-row">
                     <p className="text-xl hover:font-semibold mt-0.5">Agregar</p>
-                    < AddTaskPedidos/>
                 </div>
                 <div className="">
                     <NavLink to="/">
@@ -31,9 +27,12 @@ const Pedidos = () => {
                 <thead>
                     <tr>
                         <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Codigo</th>
-                        <th className="border-slate-600 bg-emerald-400">
-                            Descripcion
-                        </th>
+                        <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Sucursal_id</th>
+                        <th className="rounded-tl-lg border-slate-600 bg-emerald-400">Proveedor_id</th>
+                        <th className="border-slate-600 bg-emerald-400">Usuario</th>
+                        <th className="border-slate-600 bg-emerald-400">Pedido Fecha</th>
+                        <th className="border-slate-600 bg-emerald-400">Ped_obersvacion</th>
+                        <th className="border-slate-600 bg-emerald-400">Estado Pedido</th>
                         <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
                             Editar
                         </th>
@@ -43,7 +42,7 @@ const Pedidos = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.map((task) => (
+                    {/* {tasks.map((task) => (
                         <tr key={task.id}>
                             <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{task.id}</td>
                             <td className="border pl-2 border-r-indigo-500">{task.descripcion}</td>
@@ -59,13 +58,13 @@ const Pedidos = () => {
                             </td>
                             <td className="pl-2">
                                 <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
-                                    handleDelete(task.id);
+                                    // handleDelete(task.id);
                                 }}>
                                     Eliminar
                                 </button>
                             </td>
                         </tr>
-                    ))}
+                    ))} */}
                 </tbody>
             </table>
         </div>

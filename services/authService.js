@@ -1,17 +1,16 @@
 const bcrypt = require("bcryptjs");
-const { User } = require("../models");
+const users  = require("../models/users");
 const { generateToken, verifyToken } = require("../helpers/jwt");
 
 class auathService {
   async login(usuario, password) {
-    const user = await User.findOne({ where: { usuario } });
+    const user = await users.findOne({ where: { usuario } });
     if (!user) {
-      return new Error("Usuario no encontrado");
+      return res.status(400).json({ msg: "Usuario no encontrado" });
     }
     const isMatch = await this.compare(password, user.password);
     if (!isMatch) {
-      res.json({ msg: "Contraseña incorrecta" });
-      return;
+      return res.status(400).json({ msg: "Contraseña incorrecta" })
     }
     const userData = await this.getUserData(user);
     res.send(userData);
@@ -20,7 +19,7 @@ class auathService {
 
   async register(body) {
     body.password = await this.encript(body.password);
-    const user = await User.create(body);
+    const user = await users.create(body);
     return {
       message: "User created successfully",
       data: user,

@@ -1,60 +1,50 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../database/db");
-  const mercaderias = sequelize.define('mercaderias', {
-    Mer_id: {
+  const users = sequelize.define('users', {
+    Us_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    Mar_id: {
+    Suc_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       references: {
-        model: 'marcas',
-        key: 'Mar_id'
+        model: 'sucursales',
+        key: 'Suc_id'
       }
     },
-    descripcion: {
+    usuario: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    preciocompra: {
-      type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
-      allowNull: false
-    },
-    precioventa: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    estado: {
+    password: {
       type: DataTypes.STRING(255),
       allowNull: false
-    },
-    Mer_impuesto: {
-      type: DataTypes.DECIMAL(2,0),
-      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'mercaderias',
-    timestamps: false,
+    tableName: 'users',
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "Mer_id" },
+          { name: "Us_id" },
+          { name: "Suc_id" },
         ]
       },
       {
-        name: "Mar_id",
+        name: "Suc_id",
         using: "BTREE",
         fields: [
-          { name: "Mar_id" },
+          { name: "Suc_id" },
         ]
       },
     ]
   });
-module.exports = mercaderias;
+module.exports = users;

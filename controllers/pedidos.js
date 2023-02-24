@@ -1,17 +1,40 @@
-const proveedores = require("../models/proveedores");
+const pedidos = require("../models/pedidos");
 const PDFDocument = require("pdfkit-table");
+// const initModels = require("../models/init-models");
+// const {sequelize} = require('../database/db')
+// const models = initModels(sequelize);
+const sucursales = require("../models/sucursales");
+const proveedores = require("../models/proveedores");
+const users = require("../models/users");
 
 class pedidosContollers {
-  static async getProv(req, res) {
-    const response = await proveedores.findAll();
+  static async getPedidos(req, res) {
+    const response = await pedidos.findAll({
+      include: [
+        {
+          model: proveedores,
+          as: "Pro",
+        },
+        {
+          model: users,
+          as: "U",
+          attributes: ["usuario", "Suc_id"],
+          include: [
+            {
+              model: sucursales,
+              as: "Suc",
+              attributes: ["descripcion"],
+            },
+          ],
+        },
+      ],
+    });
     return res.status(200).json({
       status: true,
-      message: "proveedores encontrados",
+      message: "pedidos encontrados",
       data: response,
     });
   }
-
-
 
   static async generatePdf(req, res) {
     const doc = new PDFDocument();
@@ -51,15 +74,13 @@ class pedidosContollers {
       });
   }
 
-
-  
-  static async getProvById(req, res) {
+  static async getpedidosById(req, res) {
     try {
       const { id } = req.params;
-      const response = await proveedores.findByPk(id);
+      const response = await pedidos.findByPk(id);
       res.status(200).json({
         status: true,
-        message: "proveedor encontrado",
+        message: "pedido encontrado",
         data: response,
       });
     } catch (error) {
@@ -67,13 +88,13 @@ class pedidosContollers {
     }
   }
 
-  static async createProv(req, res) {
+  static async createPedidos(req, res) {
     try {
       const { body } = req;
-      const response = await proveedores.create({ ...body });
+      const response = await pedidos.create({ ...body });
       res.status(200).json({
         status: true,
-        message: "proveedor creado",
+        message: "pedido creado",
         data: response,
       });
     } catch (error) {
@@ -82,17 +103,26 @@ class pedidosContollers {
     }
   }
 
-  static async updateProv(req, res) {
+  static async updatePedidos(req, res) {
     try {
-      const { Ciu_descripcion } = req.body;
+      const { body } = req;
       const { id } = req.params;
-      const response = await proveedores.update(
-        { Ciu_descripcion },
-        { where: { Ciu_id: id } }
+      const data = await pedidos.findByPk(id);
+      if (!data) {
+        return res.status(400).json({
+          status: false,
+          message: "pedido no encontrado",
+          data: null,
+        });
+      }
+      const response = await pedidos.update(
+        { ...body },
+        { where: { Ped_Id: id } }
       );
+      console.log(response);
       res.status(200).json({
         status: true,
-        message: "proveedor modificado",
+        message: "pedido modificado",
         data: response,
       });
     } catch (error) {
@@ -101,13 +131,13 @@ class pedidosContollers {
     }
   }
 
-  static async deleteProv(req, res) {
+  static async deletePedidos(req, res) {
     try {
       const { id } = req.params;
-      const response = await proveedores.destroy({ where: {id} });
+      const response = await pedidos.destroy({ where: { id } });
       res.status(200).json({
         status: true,
-        message: "proveedor eliminado",
+        message: "pedido eliminado",
         data: response,
       });
     } catch (error) {

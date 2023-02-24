@@ -3,9 +3,9 @@ const {PASSWORD, USERNAME, DATABASE, HOST} = require('./index')
 module.exports = {
   "development": {
     "username": "root",
-    "password":  PASSWORD,
-    "database": DATABASE,
-    "host": HOST,
+    "password":  'Narutoshippuden',
+    "database": 'taller2',
+    "host": 'localhost',
     "dialect": "mysql"
   },
   "test": {

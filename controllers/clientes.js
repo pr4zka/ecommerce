@@ -1,21 +1,21 @@
-const sucursales = require("../models/sucursales");
+const clientes = require("../models/clientes");
 
-class sucursalesContollers {
+class clientesContollers {
 
 
-  static async getCiudades(req, res) {
-    const response = await sucursales.findAll();
+  static async getClientes(req, res) {
+    const response = await clientes.findAll();
     res.status(200).json({
       status: true,
-      message: "Ciudades encontrada",
+      message: "Clientes encontrados",
       data: response,
     });
   }
 
-  static async getCiudadesById(req, res) {
+  static async getClientesId(req, res) {
     try {
       const { id } = req.params;
-      const response = await sucursales.findByPk(id);
+      const response = await ciudades.findByPk(id);
       res.status(200).json({
         status: true,
         message: "Ciudad eocntrada",
@@ -26,10 +26,10 @@ class sucursalesContollers {
     }
   }
 
-  static async createCiudades(req, res) {
+  static async createClientes(req, res) {
     try {
-      const { descripcion } = req.body;
-      const response = await sucursales.create({ descripcion });
+      const { Cedula, Nombre, Apellido } = req.body;
+      const response = await clientes.create({ Cedula, Nombre, Apellido });
       res.status(200).json({
         status: true,
         message: "Ciudad creada",
@@ -41,11 +41,11 @@ class sucursalesContollers {
     }
   }
   
-  static async updateCiudades(req, res) {
+  static async updateClientes(req, res) {
     try {
       const { descripcion } = req.body;
       const { id } = req.params;
-      const response = await sucursales.update(
+      const response = await ciudades.update(
         { descripcion },
         { where: { id } }
       );
@@ -60,10 +60,10 @@ class sucursalesContollers {
     }
   }
 
-  static async deleteCiudades(req, res) {
+  static async deleteClientes(req, res) {
     try {
       const { id } = req.params;
-      const response = await sucursales.destroy({ where: { id } });
+      const response = await ciudades.destroy({ where: { id } });
       res.status(200).json({
         status: true,
         message: "Ciudad eliminada",
@@ -75,4 +75,4 @@ class sucursalesContollers {
   }
 }
 
-module.exports = sucursalesContollers;
+module.exports = clientesContollers;

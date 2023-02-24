@@ -1,4 +1,4 @@
-const { paises } = require("../models");
+const  paises  = require("../models/paises");
 
 class paisesControllers {
 
