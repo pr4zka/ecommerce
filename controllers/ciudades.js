@@ -11,6 +11,7 @@ class ciudadesContollers {
     });
   }
   static async generatePdf(req, res) {
+    console.log("Generando PDF");
     const doc = new PDFDocument();
 
     ciudades
@@ -42,6 +43,8 @@ class ciudadesContollers {
         doc.pipe(res);
         doc.end();
       })
+        //  headers: ["Pedido", "Proveedor", "Usuario", "Fecha_Ped", "Observacion", "Estado"],
+        // pedido.Ped_Id, pedido.Prov_Id, pedido.Usu_Id, pedido.Ped_fecha, pedido.Ped_observacion, pedido.Ped_estado
       .catch((err) => {
         console.error("Error retrieving users from the database: " + err);
         res.status(500).send("Error retrieving users from the database");

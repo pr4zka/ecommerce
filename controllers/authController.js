@@ -12,7 +12,7 @@ class auhtController {
   static async login(req, res) {
     const { password } = req.body;
     try {
-      const user = await User.findOne({ usuario: req.body.usuario });
+      const user = await User.findOne({ where: { usuario: req.body.usuario } });
       if (!user) {
       return res.status(400).json({ msg: "Usuario no encontrado" });
       }
@@ -26,7 +26,7 @@ class auhtController {
       };
       return res.json({
         data,
-        msg: "Bienvenido"
+        msg: `Bienvenido ${user.usuario}`
       });
       
     } catch (error) {

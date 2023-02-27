@@ -1,12 +1,36 @@
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllCargos, deleteCargo, createCargo } from "../api/cargos";
 import { getEmpleados, deleteEmpleado, createEmpleado } from "../api/empleados";
-import { getCiudades, deleteCiudad, createCiudad, updateCiudad, getCiudadById } from "../api/ciudades";
+import {
+  getCiudades,
+  deleteCiudad,
+  createCiudad,
+  updateCiudad,
+  getCiudadById,
+} from "../api/ciudades";
 import { createEstado, getEstadoCivil, deleteEstado } from "../api/estadoCivil";
 import { createMarca, getMarcas, deleteMarca } from "../api/marcas";
-import {createAjusteMantener, getAjusteMantener, deleteAjusteMantener } from '../api/ajustaMantener'
-import {createCompras, getCompras, deleteCompras, getComprasById, updateCompras} from '../api/vs_compras'
-
+import {
+  createAjusteMantener,
+  getAjusteMantener,
+  deleteAjusteMantener,
+} from "../api/ajustaMantener";
+import {
+  createCompras,
+  getCompras,
+  deleteCompras,
+  getComprasById,
+  updateCompras,
+} from "../api/vs_compras";
+import {
+  getAllPedidos,
+  getPedidosById,
+  createPedidos,
+  deletePedidos,
+  updatePedidos,
+} from "../api/pedidos";
 
 import {
   createMercaderia,
@@ -26,6 +50,22 @@ export const useTasks = () => {
 };
 
 export const TaskContextProvider = ({ children }) => {
+  
+  const showNotification = {
+    success: (message) => {
+      toast.success(message);
+    },
+    error: (message) => {
+      toast.error(message);
+    },
+    warning: (message) => {
+      toast.warning(message);
+    },
+    info: (message) => {
+      toast.info(message);
+    },
+  };
+
   const [tasks, setTasks] = useState([]);
   const [empleados, setEmpleado] = useState([]);
 
@@ -94,11 +134,11 @@ export const TaskContextProvider = ({ children }) => {
     setCiudad(response.data.data);
   }
 
-  async function getCiuadadId(id){
+  async function getCiuadadId(id) {
     const response = await getCiudadById(id);
     return response.data.data;
   }
-  async function deleteCiudades(id){
+  async function deleteCiudades(id) {
     try {
       await deleteCiudad(id);
       setCiudad(ciudades.filter((ciudad) => ciudad.Ciu_id !== id));
@@ -107,16 +147,15 @@ export const TaskContextProvider = ({ children }) => {
     }
   }
 
-  async function updateCiudades(id, values){
+  async function updateCiudades(id, values) {
     try {
       const res = await updateCiudad(id, values);
-      console.log('actualizado', res)
+      console.log("actualizado", res);
       // setCiudad(ciudades.filter((ciudad) => ciudad.Ciu_id !== id));
     } catch (error) {
       console.log(error);
     }
   }
-    
 
   //estadoCivil
   const [estadoCivil, setEstadoCivil] = useState([]);
@@ -179,12 +218,11 @@ export const TaskContextProvider = ({ children }) => {
   const [mercaderias, setMercaderia] = useState([]);
   const [idMercaderia, setIdMercaderia] = useState([]);
 
-
   const createMercaderias = async (values) => {
     try {
-      console.log(values)
+      console.log(values);
       const res = await createMercaderia(values);
-      console.log(res)
+      console.log(res);
       setMercaderia([...mercaderias, res.data.data]);
     } catch (error) {
       console.log(error);
@@ -213,7 +251,6 @@ export const TaskContextProvider = ({ children }) => {
   const [ajustes, setAjuste] = useState([]);
   const [idAjuste, setIdAjuste] = useState([]);
 
-
   const createAjuste_Mantener = async (values) => {
     try {
       const res = await createAjusteMantener(values);
@@ -222,7 +259,7 @@ export const TaskContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-  
+
   async function getAjuste() {
     const response = await getAjusteMantener();
     if (response.data.data.length > 0) {
@@ -253,7 +290,6 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
-
   async function getCompra() {
     const response = await getCompras();
     if (response.data.data.length > 0) {
@@ -272,9 +308,75 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
+  //pedidos
+  const [pedidos, setPedido] = useState([]);
+
+  async function createPedido(values) {
+    console.log("TaskContext", values);
+    try {
+      await createPedidos(values);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getPedidos() {
+    try {
+      const response = await getAllPedidos();
+      if (Array.isArray(response.data.data)) {
+        const nuevosPedidos = response.data.data.map((pedido) => ({
+          id: pedido.Ped_Id,
+          proveedorId: pedido.Pro.razonsocial,
+          usuarioId: pedido.U.usuario,
+          fecha: new Date(pedido.Ped_fecha).toLocaleDateString(),
+          observacion: pedido.Ped_observacion,
+          estado: pedido.Ped_estado,
+        }));
+        setPedido(nuevosPedidos);
+      }
+    } catch (error) {
+      console.error("Error al obtener los datos de pedidos", error);
+    }
+  }
+
+  async function getPedido(id) {
+    try {
+      const response = await getPedidosById(id);
+      return response.data.data;
+    } catch (error) {
+      console.error("Error al obtener los datos de pedidos", error);
+    }
+  }
+
+  async function updatePedido(id, values) {
+    try {
+      await updatePedidos(id, values);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deletePedido(id) {
+    try {
+      await deletePedidos(id);
+      setPedido(pedidos.filter((pedido) => pedido.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <TaskContext.Provider
       value={{
+        showNotification,
+        //pedidos
+        createPedido,
+        updatePedido,
+        getPedidos,
+        getPedido,
+        pedidos,
+        deletePedido,
+
         tasks,
         getCargos,
         handleDelete,

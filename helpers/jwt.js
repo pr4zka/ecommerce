@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config/index");
 
 const generateToken = async (user) => {
-  const token = await jwt.sign({ id: user.id }, JWT_SECRET, {
+  console.log("token",user.dataValues)
+  const token = await jwt.sign({ usuario: user}, JWT_SECRET, {
     expiresIn: "7d",
   });
   return token;

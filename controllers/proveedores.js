@@ -15,21 +15,20 @@ class pedidosContollers {
 
   static async generatePdf(req, res) {
     const doc = new PDFDocument();
-
-    pedidos
+    proveedores
       .findAll()
-      .then((pedidos) => {
+      .then((ped) => {
         // Genera la tabla con los datos
         doc
           .fontSize(12)
-          .text("Registro Pedidos", { align: "center" })
+          .text("Registro Proveedores", { align: "center" })
           .moveDown(0.5);
         const table = {
-          headers: ["ID", "Nombre"],
+          headers: [],
           rows: [],
         };
-        pedidos.forEach((pedido) => {
-          table.rows.push([pedido.Ciu_id, pedido.Ciu_descripcion]);
+        ped.forEach((pro) => {
+          table.rows.push([pro.Pro_Id, pro.id, pro.Us_id ,pro.Ped_fecha, pro.Ped_observacion, pro.Ped_estado]);
         });
         doc.table(table, {
           prepareHeader: () => doc.font("Helvetica-Bold"),
@@ -39,7 +38,7 @@ class pedidosContollers {
         // Establece el encabezado de la respuesta
         res.setHeader(
           "Content-Disposition",
-          `attachment; filename="${`ciudades-${Date.now()}`}.pdf"`
+          `attachment; filename="${`pedidos-${Date.now()}`}.pdf"`
         );
         // Envía la respuesta de encabezado
         doc.pipe(res);

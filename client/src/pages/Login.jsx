@@ -1,24 +1,26 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import { Icon } from "react-icons-kit";
-import { view } from "react-icons-kit/ikons/view";
-import { view_off } from "react-icons-kit/ikons/view_off";
-import { register, login, profileReques } from "../api/auth";
+import {  login, profileReques } from "../api/auth";
 import { useAuthStore } from "../store/auth";
+import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTasks } from "../context/TaskContext";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+
+
 
 export const Login = () => {
+  const { showNotification } = useTasks();
   const setToken = useAuthStore((state) => state.setToken);
   const setProfile = useAuthStore((state) => state.setProfile);
   const navigate = useNavigate();
-
-  const showToastMessage = () => {
-    toast.success("Bienvenido al Sistema", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  };
 
   const showToastError = () => {
     toast.error("Usuario o Contraseña Incorrecta", {
@@ -26,66 +28,80 @@ export const Login = () => {
     });
   };
 
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(view_off);
-
-  const handleToggle = () => {
-    if (type === "password") {
-      setIcon(view);
-      setType("text");
-    } else {
-      setIcon(view_off);
-      setType("password");
-    }
-  };
-
   const handleLogin = async (values) => {
+    console.log(values);
     const resLogin = await login(values);
     if (resLogin.status === 400) {
       showToastError();
     } else {
       setToken(resLogin.data.token);
-      showToastMessage();
       const resProfile = await profileReques();
       setProfile(resProfile.data);
+      showNotification.success(
+        `Bienvenido ${resProfile.data.msg.split(" ")[2]}`
+      );
       navigate("/");
     }
   };
-  return (
 
-    <div className="background">
-      <div className="container-f">
-        <h2 className="f-t text-sky-700">Incio al Sistema</h2>
+  const formik = useFormik({
+    initialValues: {
+      usuario: "",
+      password: "",
+    },
+    onSubmit: (values) => handleLogin(values),
+  });
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Iniciar Sesion
+        </Typography>
         <ToastContainer />
-        <Formik
-          initialValues={{
-            usuario: "",
-            password: "",
-          }}
-          onSubmit={(values) => handleLogin(values)}
-        >
-          <Form className="form">
-            <Field
-              type="text"
-              name="usuario"
-              placeholder="Usuario"
-              className="input i-l"
-            />
-            <Field
-              type={type}
-              name="password"
-              placeholder="Password"
-              className="input i-l"
-            />
-            <span className="password-toogle-icon-l" onClick={handleToggle}>
-              <Icon icon={icon} />
-            </span>
-            <button className="btn-form hover:bg-green-400" type="submit"> 
-              Iniciar Sesion
-            </button>
-          </Form>
-        </Formik>
-      </div>
-    </div>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Usuasrio"
+            name="usuario"
+            onChange={formik.handleChange}
+            autoComplete="name"
+            autoFocus
+            type="text"
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            onChange={formik.handleChange}
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 };

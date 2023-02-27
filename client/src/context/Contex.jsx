@@ -18,7 +18,6 @@ export const ShopContainer = ({ children }) => {
 
     const loginRequest = async (data) => {
         const res = await login(data)
-        console.log(res)
     }
 
 

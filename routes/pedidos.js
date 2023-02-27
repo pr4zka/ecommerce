@@ -4,6 +4,7 @@ const router = Router();
 
 router.get("/pedidos", pedidosContollers.getPedidos);
 router.get("/pedidos/pdf", pedidosContollers.generatePdf);
+router.get("/pedidos/exel", pedidosContollers.generateExel);
 router.get("/pedidos/:id", pedidosContollers.getpedidosById);
 router.post("/pedidos", pedidosContollers.createPedidos);
 router.patch("/pedidos/:id", pedidosContollers.updatePedidos);

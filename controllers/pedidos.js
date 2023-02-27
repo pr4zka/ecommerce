@@ -1,11 +1,9 @@
 const pedidos = require("../models/pedidos");
 const PDFDocument = require("pdfkit-table");
-// const initModels = require("../models/init-models");
-// const {sequelize} = require('../database/db')
-// const models = initModels(sequelize);
 const sucursales = require("../models/sucursales");
 const proveedores = require("../models/proveedores");
 const users = require("../models/users");
+const exel = require("exceljs");
 
 class pedidosContollers {
   static async getPedidos(req, res) {
@@ -40,19 +38,48 @@ class pedidosContollers {
     const doc = new PDFDocument();
 
     pedidos
-      .findAll()
-      .then((pedidos) => {
+      .findAll({
+        include: [
+          {
+            model: proveedores,
+            as: "Pro",
+          },
+          {
+            model: users,
+            as: "U",
+            attributes: ["usuario"],
+          },
+        ],
+      })
+      .then((ped) => {
         // Genera la tabla con los datos
         doc
           .fontSize(12)
           .text("Registro Pedidos", { align: "center" })
           .moveDown(0.5);
         const table = {
-          headers: ["ID", "Nombre"],
+          headers: [
+            "Pedido",
+            "Proveedor",
+            "Usuario",
+            "Fecha_Ped",
+            "Observacion",
+            "Estado",
+          ],
           rows: [],
         };
-        pedidos.forEach((pedido) => {
-          table.rows.push([pedido.Ciu_id, pedido.Ciu_descripcion]);
+        ped.forEach((pedido) => {
+          const formattedDate = new Date(pedido.Ped_fecha).toLocaleDateString(
+            "es-ES"
+          );
+          table.rows.push([
+            pedido.Ped_Id,
+            pedido.Pro.razonsocial,
+            pedido.U.usuario,
+            formattedDate,
+            pedido.Ped_observacion,
+            pedido.Ped_estado,
+          ]);
         });
         doc.table(table, {
           prepareHeader: () => doc.font("Helvetica-Bold"),
@@ -74,10 +101,66 @@ class pedidosContollers {
       });
   }
 
+  static async generateExel(req, res) {
+      const workbook = new exel.Workbook();
+      const worksheet = workbook.addWorksheet("Pedidos");
+      const response = await pedidos.findAll({
+        include: [
+          {
+            model: proveedores,
+            as: "Pro",
+          },
+          {
+            model: users,
+            as: "U",
+            attributes: ["usuario"],
+          },
+        ],
+      });
+      worksheet.columns = [
+        { header: "Pedido", key: "Ped_Id" },
+        { header: "Proveedor", key: "razonsocial" },
+        { header: "Usuario", key: "usuario" },
+        { header: "Fecha_Ped", key: "fecha" },
+        { header: "Observacion", key: "observacion" },
+        { header: "Estado", key: "estado" },
+      ];
+      response.forEach((pedido) => {
+        worksheet.addRow({
+          Ped_Id: pedido.Ped_Id,
+          razonsocial: pedido.Pro.razonsocial,
+          usuario: pedido.U.usuario,
+          fecha: pedido.Ped_fecha,
+          observacion: pedido.Ped_observacion,
+          estado: pedido.Ped_estado,
+        });
+      });
+      res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="${`pedidos-${Date.now()}`}.xlsx"`
+      );
+      await workbook.xlsx.write(res);
+      res.end();
+      
+  }
+
   static async getpedidosById(req, res) {
     try {
       const { id } = req.params;
-      const response = await pedidos.findByPk(id);
+      const response = await pedidos.findByPk(id, {
+        include: [
+          {
+            model: proveedores,
+            as: "Pro",
+          },
+          {
+            model: users,
+            as: "U",
+            attributes: ["usuario"],
+          },
+        ],
+      });
       res.status(200).json({
         status: true,
         message: "pedido encontrado",
@@ -119,7 +202,6 @@ class pedidosContollers {
         { ...body },
         { where: { Ped_Id: id } }
       );
-      console.log(response);
       res.status(200).json({
         status: true,
         message: "pedido modificado",
@@ -134,7 +216,7 @@ class pedidosContollers {
   static async deletePedidos(req, res) {
     try {
       const { id } = req.params;
-      const response = await pedidos.destroy({ where: { id } });
+      const response = await pedidos.destroy({ where: { Ped_Id: id } });
       res.status(200).json({
         status: true,
         message: "pedido eliminado",

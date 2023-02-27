@@ -17,8 +17,6 @@ export const useAuthStore = create(
           isAuth: false,
        }))
     }),
-      
-
     {
       name: "auth",
     }
