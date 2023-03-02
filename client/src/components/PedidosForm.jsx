@@ -5,19 +5,17 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Input } from "@mui/material";
+import Button from "@mui/joy/Button";
+import Textarea from "@mui/joy/Textarea";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 function PedidosForm() {
   const profile = useAuthStore((state) => state.profile);
   const usuario = profile.msg.split(" ")[1];
 
   const { createPedido, updatePedido, getPedido, showNotification } = useTasks();
-
-  const showToastMessage = () => {
-    toast.error("No se puede cambiar el proveedor o dejar vacio", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  };
-
 
   const [pedido, setPedido] = useState({
     Pro_Id: "",
@@ -51,7 +49,7 @@ function PedidosForm() {
   }, []);
 
   return (
-    <div>
+    <Box noValidate autoComplete="off">
       <ToastContainer />
       <Formik
         initialValues={pedido}
@@ -59,10 +57,13 @@ function PedidosForm() {
         onSubmit={async (values, actions) => {
           if (params.id) {
             if (values.Pro_Id !== pedido.Pro_Id || values.Pro_Id == "") {
-              return showToastMessage();
+              return showNotification.error(
+                "No se puede cambiar el proveedor o dejar vacio",
+                "error"
+              );
             }
+
             await updatePedido(params.id, values);
-          
           } else {
             await createPedido(values);
           }
@@ -81,33 +82,37 @@ function PedidosForm() {
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form
             onSubmit={handleSubmit}
-            className="bg-slate-300 max-w-sm rounded-md p-4 mx-auto mt-10"
+            className="bg-slate-100 max-w-sm rounded-md p-4 mx-auto mt-10"
           >
             <h1 className="text-xl font-bold uppercase text-center">
-              {params.id ? "Editar Registro" : "Crear Registro"}
+              {params.id ? "Editar Pedido" : "Crear Pedido"}
             </h1>
-            <label className="text-black block">Proveedor</label>
-            <input
-              type="number"
+            <TextField
+              label="Proveedor"
+              sx={{ m: 1, width: "40ch" }}
+              variant="outlined"
+              id="outlined-basic"
+              color="warning"
               name="Pro_Id"
-              placeholder="Coloca el codigo del proveedor"
+              required
               onChange={handleChange}
-              className="px-2 py-1 rounded-sm w-full"
               value={values.Pro_Id}
             />
 
-            <label className="text-black block">Usuario</label>
-            <input
-              type="text"
+            <TextField
+              label="Usuario"
+              sx={{ m: 1, width: "40ch" }}
+              color="warning"
               name="Us_Id"
               placeholder="Usuario"
               readOnly
               onChange={handleChange}
-              className="px-2 py-1 rounded-sm w-full"
               value={values.Us_id}
             />
-            <label className="text-black block">Pedido Fecha</label>
-            <input
+            <TextField
+              label="Fecha"
+              sx={{ m: 1, width: "40ch" }}
+              color="warning"
               type="text"
               readOnly
               name="Ped_fecha"
@@ -116,48 +121,70 @@ function PedidosForm() {
               value={values.Ped_fecha}
             />
 
-            <label className="text-black block">Obersvacion Pedido</label>
-            <textarea
+            <TextField
+              label="Observacion"
+              sx={{ m: 1, width: "40ch" }}
+              color="warning"
+              minRows={2}
               name="Ped_observacion"
+              placeholder="Observacion del pedido"
               rows="3"
-              placeholder="Escriba una observacion"
+              required
               onChange={handleChange}
-              className="px-2 py-1 rounded-sm w-full"
               value={values.Ped_observacion}
-            ></textarea>
-            <label className="text-black block">Estado Pedido</label>
-            <textarea
+            />
+            <TextField
+              label="Estado"
+              sx={{ m: 1, width: "40ch" }}
+              color="warning"
+              minRows={2}
+              required
+              placeholder="Estado del pedido"
+              size="lg"
               name="Ped_estado"
-              rows="3"
-              placeholder="Escriba el estado del pedido"
               onChange={handleChange}
-              className="px-2 py-1 rounded-sm w-full"
               value={values.Ped_estado}
-            ></textarea>
+            />
 
-            <button
+            <Button
+              variant="contained"
               type="submit"
               disabled={isSubmitting}
-              className="block bg-indigo-500 px-2 py-1 text-white w-full rounded-md m-1 hover:bg-blue-700"
-              onClick={() => {
-                showNotification.success("Pedido Editado")
+              sx={{
+                backgroundColor: "#4B5563",
+                color: "#F3F4F6",
+                width: "100%",
+                marginTop: "4px",
+                borderRadius: "0.375rem",
+                "&:hover": {
+                  backgroundColor: "#1F2937",
+                },
               }}
             >
-              {isSubmitting ? "Saving..." : "Save"}
-            </button>
-            <button
+              {isSubmitting ? "Registrando..." : "Registrar"}
+            </Button>
+            <Button
               type="submit"
-              className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full m-1"
+              sx={{
+                backgroundColor: "#4B5563",
+                color: "#F3F4F6",
+                width: "100%",
+                marginTop: "4px",
+                borderRadius: "0.375rem",
+                "&:hover": {
+                  backgroundColor: "#1F2937",
+                },
+              }}
               onClick={() => {
                 navigate("/pedidos");
               }}
             >
               Volver
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 }
 

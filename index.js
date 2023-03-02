@@ -62,6 +62,7 @@ app.use(require('./routes/sucursales'))
 app.use(require('./routes/clientes'))
 app.use(require('./routes/pedidos'))
 app.use(require('./routes/proveedores'))
+app.use(require('./routes/compras'))
 // app.use(require("./routes/cargos"));
 // app.use(require("./routes/empleados"));
 // app.use(require("./routes/estadoCivil"));

@@ -23,7 +23,7 @@ import {
   deleteCompras,
   getComprasById,
   updateCompras,
-} from "../api/vs_compras";
+} from "../api/compras";
 import {
   getAllPedidos,
   getPedidosById,
@@ -68,6 +68,7 @@ export const TaskContextProvider = ({ children }) => {
 
   const [tasks, setTasks] = useState([]);
   const [empleados, setEmpleado] = useState([]);
+
 
   async function getCargos() {
     const response = await getAllCargos();
@@ -279,7 +280,6 @@ export const TaskContextProvider = ({ children }) => {
   };
   //compras
   const [compras, setCompra] = useState([]);
-  const [idCompra, setIdCompra] = useState([]);
 
   const createCompra = async (values) => {
     try {
@@ -291,13 +291,31 @@ export const TaskContextProvider = ({ children }) => {
   };
 
   async function getCompra() {
-    const response = await getCompras();
-    if (response.data.data.length > 0) {
-      setIdCompra(response.data.data[response.data.data.length - 1].id + 1);
-    } else {
-      setIdCompra(1);
-    }
-    setCompra(response.data.data);
+      try {
+         const response = await getCompras();
+          if(Array.isArray(response.data.data)){
+            const nuevasCompras = response.data.data.map((compras) => ({
+              id: compras.Com_id,
+              pedido: compras.Ped.Ped_Id,
+              proveedor: compras.Ped.Pro.razonsocial,
+              sucursal: compras.Suc.descripcion,
+              usuario: compras.U.usuario,
+              fecha: new Date(compras.fecha).toLocaleDateString(),
+              tipoComprobante: compras.tip_comprobante,
+              serComprobante: compras.ser_compronbante,
+              numeroFactura: compras.nro_factura,
+              observacion: compras.observacion,
+              total: compras.total,
+              totalExenta: compras.totalexenta,
+              totaliva5: compras.titaliva5,
+              totaliva10: compras.totaliva10,
+              estado: compras.estado
+            }))
+            setCompra(nuevasCompras);
+          }
+      } catch (error) {
+        console.log(error)
+      }  
   }
   const handleDeleteCompra = async (id) => {
     try {
@@ -307,6 +325,15 @@ export const TaskContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const getCompraById = async (id) => {
+    try {
+      const response = await getComprasById(id);
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   //pedidos
   const [pedidos, setPedido] = useState([]);
@@ -419,7 +446,7 @@ export const TaskContextProvider = ({ children }) => {
         getCompra,
         deleteCompras,
         compras,
-        idCompra,
+        getCompraById,
         handleDeleteCompra,
       }}
     >

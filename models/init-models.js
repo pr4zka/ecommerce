@@ -76,7 +76,7 @@ function initModels(sequelize) {
   users.hasMany(ajuste, { as: "ajustes", foreignKey: "Us_id"});
   ajuste.belongsTo(users, { as: "Suc", foreignKey: "Suc_id"});
   users.hasMany(ajuste, { as: "Suc_ajustes", foreignKey: "Suc_id"});
-  compras.belongsTo(users, { as: "Suc", foreignKey: "Suc_id"});
+  compras.belongsTo(sucursales, { as: "Suc", foreignKey: "Suc_id"});
   users.hasMany(compras, { as: "compras", foreignKey: "Suc_id"});
   compras.belongsTo(users, { as: "U", foreignKey: "Us_id"});
   users.hasMany(compras, { as: "Us_compras", foreignKey: "Us_id"});

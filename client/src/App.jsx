@@ -30,6 +30,7 @@ import { ProtectedRoutes } from "./components/PotectedRoutes";
 import { useAuthStore } from "./store/auth";
 import { TaskContextProvider } from "./context/TaskContext";
 import PedidosForm from "./components/PedidosForm";
+import ComprasForm from "./components/ComprasForm";
 import Test from './pagesmov/Test'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -67,7 +68,12 @@ function App() {
               <Route path="/proveedores" element={<Proveedores />} />
               <Route path="/sucursales" element={<Sucursales />} />
               <Route path="/ajustes" element={<Ajustes />} />
+
               <Route path="/compras" element={<Compras />} />
+              <Route path="/new/compra" element={<ComprasForm />} />
+              <Route path="/edit/compras/:id" element={<ComprasForm />} />
+              
+              
               <Route path="/cuentas-a-pagar" element={<Cuentas />} />
               <Route path="/libro-compras" element={<LibroCompras />} />
               <Route path="/nota-de-credito" element={<NotaCredito />} />

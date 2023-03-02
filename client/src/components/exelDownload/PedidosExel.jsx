@@ -2,6 +2,7 @@ import { saveAs } from "file-saver";
 import axios from 'axios'
 
 
+
 export const PedidosExel = () => {
     const handleDownload = () => {
     axios
@@ -20,8 +21,8 @@ export const PedidosExel = () => {
   };
 
     return (
-        <button onClick={handleDownload}>
+        <a onClick={handleDownload}>
              Descargar Excel
-        </button>
+        </a>
     );
 };

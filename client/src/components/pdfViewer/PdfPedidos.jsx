@@ -28,7 +28,7 @@ function PdfPedidos() {
 
   return (
     <div>
-      <button onClick={handleDownloadPdf}>Visualizar PDF</button>
+      <a onClick={handleDownloadPdf}>Visualizar PDF</a>
       {pdfUrl && (
         <div>
           <Document

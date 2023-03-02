@@ -1,9 +1,24 @@
 const proveedores = require("../models/proveedores");
+const paises = require("../models/paises");
+const ciudades = require("../models/ciudades");
 const PDFDocument = require("pdfkit-table");
 
 class pedidosContollers {
   static async getProv(req, res) {
-    const response = await proveedores.findAll();
+    const response = await proveedores.findAll({
+      include: [
+        {
+          model: paises,
+          as: "id_paise",
+          attributes: ["descripcion"],
+        },
+        {
+          model: ciudades,
+          as: "Ciu",
+          attributes: ["Ciu_descripcion"],
+        },
+      ]
+    });
     return res.status(200).json({
       status: true,
       message: "proveedores encontrados",
