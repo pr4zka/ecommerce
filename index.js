@@ -73,7 +73,6 @@ app.use(require("./routes/paises"));
 // app.use(require("./routes/vs_compras"));
 
 //server
-//server
 app.listen(4000, () => {
   sequelize.sync({ force:  false}).then(() => {
     console.log(`Server running on port ${4000}`);

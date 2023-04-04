@@ -10,7 +10,6 @@ import CiudadesForm from "./pagesref/CiuadesForm";
 import Empleados from "./pagesref/Empleados";
 import EstadoCivil from "./pagesref/EstadoCivil";
 import Marcas from "./pagesref/Marcas";
-import Mercaderias from "./pagesref/Mercaderias";
 import MotivoAjuste from "./pagesref/MotivoAjuste";
 import Nacionalidades from "./pagesref/Nacionalidades";
 import Paises from "./pagesref/Paises";
@@ -31,15 +30,20 @@ import { useAuthStore } from "./store/auth";
 import { TaskContextProvider } from "./context/TaskContext";
 import PedidosForm from "./components/PedidosForm";
 import ComprasForm from "./components/ComprasForm";
-import Test from './pagesmov/Test'
+import Test from "./pagesmov/Test";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Mercaderias from "./pagesmov/Mercaderias";
+import MercaderiasForm from "./pagesmov/MercaderiasForm";
+import SucursalesForm from "./pagesref/SucursalesForm";
+import Services from "./servicios/Services";
+import ServicesForm from "./servicios/ServicesForm";
+import ComprasDetalle from "./pagesmov/ComprasDetalle";
+import ComprasDetalleForm from "./pagesmov/ComprasDetalleForm";
 
 function App() {
-
   const isAuth = useAuthStore((state) => state.isAuth);
- 
+
   return (
     <div>
       <TaskContextProvider>
@@ -53,7 +57,7 @@ function App() {
               <Route path="/cargos" element={<Cargos />} />
 
               <Route path="/test" element={<Test />} />
-              
+
               <Route path="/ciudades" element={<Ciudades />} />
               <Route path="/edit/ciudades/:id" element={<CiudadesForm />} />
               <Route path="/new/ciudades" element={<CiudadesForm />} />
@@ -72,8 +76,24 @@ function App() {
               <Route path="/compras" element={<Compras />} />
               <Route path="/new/compra" element={<ComprasForm />} />
               <Route path="/edit/compras/:id" element={<ComprasForm />} />
-              
-              
+
+              <Route path="/mercaderias" element={<Mercaderias />} />
+              <Route path="/new/mercaderias" element={<MercaderiasForm />} />
+              <Route path="/edit/mercaderias/:id" element={<ComprasForm />} />
+
+              <Route path="/sucursales" element={<Sucursales />} />
+              <Route path="/new/sucursales" element={<SucursalesForm />} />
+              <Route path="/edit/sucursales/:id" element={<SucursalesForm />} />
+
+              <Route path="/services" element={<Services />} />
+              <Route path="/new/service" element={<ServicesForm />} />
+              <Route path="/edit/service/:id" element={<ServicesForm />} />
+
+
+              <Route path="/comprasDetalle" element={<ComprasDetalle />} />
+              <Route path="/new/comprasDetalle" element={<ComprasDetalleForm />} />
+              <Route path="/edit/comprasDetalle/:id" element={<ComprasDetalleForm />} />
+
               <Route path="/cuentas-a-pagar" element={<Cuentas />} />
               <Route path="/libro-compras" element={<LibroCompras />} />
               <Route path="/nota-de-credito" element={<NotaCredito />} />
@@ -83,8 +103,7 @@ function App() {
               <Route path="/pedidos" element={<Pedidos />} />
               <Route path="/new/pedido" element={<PedidosForm />} />
               <Route path="/edit/pedidos/:id" element={<PedidosForm />} />
-              
-              
+
               <Route
                 path="/presupuesto-de-compra"
                 element={<PresupuestoCompra />}

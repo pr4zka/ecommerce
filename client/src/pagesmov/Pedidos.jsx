@@ -145,103 +145,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
           }}>
             Volver
           </Button>
-            {/* <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          // rowsPerPage={rowsPerPage}
-          // page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
       </Box>
     </CenteredHalfContainer>
     )
 };
 
 export default Pedidos;
-{
-  /* <div className="mt-12">
-        <h1 className="text-center text-2xl">PEDIDOS A MANTENER</h1>
-        <div className="flex justify-center ml-7 pt-5 ">
-          <div className="flex flex-row">
-            <p
-              className="text-xl hover:bg-green-500 rounded-lg mt-0.5 cursor-pointer"
-              onClick={() => {
-                navigate("/new/pedido");
-              }}
-            >
-              Agregar
-            </p>
-          </div>
-          <div className="">
-            <NavLink to="/">
-              <p className="text-xl hover:font-semibold pr-12">Volver</p>
-            </NavLink>
-          </div>
-        </div>
-        <table className="w-4/6 table-auto">
-          <thead>
-            <tr>
-              <th className="rounded-tl-lg border-slate-600 bg-emerald-400">
-                Codigo
-              </th>
-              <th className="rounded-tl-lg border-slate-600 bg-emerald-400">
-                Proveedor
-              </th>
-              <th className="border-slate-600 bg-emerald-400">Usuario</th>
-              <th className="border-slate-600 bg-emerald-400">Pedido Fecha</th>
-              <th className="border-slate-600 bg-emerald-400">
-                Ped_obersvacion
-              </th>
-              <th className="border-slate-600 bg-emerald-400">Estado Pedido</th>
-              <th className="border-slate-600 bg-emerald-400 hover:bg-slate-400 cursor-pointer">
-                Editar
-              </th>
-              <th className="rounded-tr-lg border-slate-600 bg-emerald-400 hover:bg-red-700 cursor-pointer">
-                Eliminar
-              </th>
-              <th className="border-slate-600 bg-emerald-400 hover:bg-green-600 cursor-pointer rounded-full">
-                <PdfPedidos />
-              </th>
-              <th className="border-slate-600 bg-emerald-400 hover:bg-green-600 cursor-pointer rounded-full">
-                 <PedidosExel />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            
-                    
-            {pedidos.map((ped) => (
-                         <tr key={ped.id}>
-                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{ped.id}</td>
-                            <td className="border pl-2 border-r-indigo-500 border-l-indigo-500">{ped.proveedorId}</td>
-                            <td className="border pl-2 border-r-indigo-500">{ped.usuarioId}</td>
-                            <td className="border pl-2 border-r-indigo-500">{ped.fecha}</td>
-                            <td className="border pl-2 border-r-indigo-500">{ped.observacion}</td>
-                            <td className="border pl-2 border-r-indigo-500">{ped.estado}</td>
-                            <td className="border pl-2 border-r-indigo-500">
-                                <button
-                                    onClick={() => {
-                                       navigate(`/edit/pedidos/${ped.id}`);
-                                    }}
-                                    className="hover:bg-slate-500 cursor-pointer"
-                                >
 
-                                    Editar
-                                </button>
-                            </td>
-                            <td className="pl-2">
-                                <button className="hover:bg-red-500 cursor-pointer" onClick={() => {
-                                     deletePedido(ped.id);
-                                     showNotification.warning("Pedido Eliminado");
-                                }}>
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr> 
-                     ))} 
-          </tbody>
-        </table>
-      </div> */
-}

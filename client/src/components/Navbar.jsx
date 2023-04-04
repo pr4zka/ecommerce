@@ -125,10 +125,13 @@ const Navbar = () => {
                   <NavLink to="/pedidos">Pedidos</NavLink>
                 </li>
                 <li className="pb-2">
-                  <NavLink to="/presupuesto-de-compra">Presupuestos</NavLink>
+                  <NavLink to="/comprasDetalle">Detalle Compras</NavLink>
                 </li>
                 <li className="pb-2">
                   <NavLink to="/stock">Stock</NavLink>
+                </li>
+                 <li className="pb-2">
+                  <NavLink to="/services">Servicios</NavLink>
                 </li>
               </ul>
             </div>

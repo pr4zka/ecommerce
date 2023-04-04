@@ -20,7 +20,7 @@ class auhtController {
       if (!isMatch) {
        return res.status(400).json({ msg: "Contraseña incorrecta" });
       }
-      
+     
       const data = {
         token: await generateToken(user)
       };

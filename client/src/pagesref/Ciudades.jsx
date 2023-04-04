@@ -22,6 +22,7 @@ const Ciudades = () => {
   const { getCiudad, ciudades, deleteCiudades } = useTasks();
   const navigate = useNavigate();
 
+
   useEffect(() => {
     getCiudad();
   }, []);
@@ -76,7 +77,7 @@ const Ciudades = () => {
       // my={20}
       >
         <h1 className="text-center text-3xl mb-8 truncate">
-          Formulario Pedidos
+          Registro Ciudades
         </h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -98,14 +99,14 @@ const Ciudades = () => {
 
                   <StyledTableCell
                     onClick={() => {
-                      navigate(`/edit/ciudades/${row.id}`);
+                      navigate(`/edit/ciudades/${row.Ciu_id}`);
                     }}
                   >
                     <EditIcon color="info" className="cursor-pointer" />
                   </StyledTableCell>
                   <StyledTableCell
                     onClick={() => {
-                      deleteCiudades(row.id);
+                      deleteCiudades(row.Ciu_id);
                     }}
                   >
                     <DeleteIcon color="error" className="cursor-pointer" />
@@ -134,7 +135,7 @@ const Ciudades = () => {
           color="inherit"
           style={{ position: "absolute", right: "490px", marginTop: "20px" }}
           onClick={() => {
-            navigate("/new/pedido");
+            navigate("/new/ciudades");
           }}
         >
           <PostAddIcon color="primary" className="cursor-pointer w-20" />

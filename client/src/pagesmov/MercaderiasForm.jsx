@@ -19,8 +19,8 @@ import * as React from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from '@mui/material/InputLabel';
-
-function ComprasForm() {
+ 
+function MercaderiasForm() {
   const profile = useAuthStore((state) => state.profile);
   const usuario = profile.msg.split(" ")[1];
 
@@ -113,7 +113,7 @@ function ComprasForm() {
       <CenteredHalfContainer>
         <ToastContainer />
         <Formik
-          initialValues={Compras}
+          initialValues={""}
           enableReinitialize={true}
           onSubmit={async (values, actions) => {
             if (params.id) {
@@ -122,7 +122,7 @@ function ComprasForm() {
             } else {
               await createCiudades(values);
             }
-            navigate("/ciudades");
+            navigate("/mercaderias");
             setCiudad({
               Ciud_id: "",
               Ciu_descripcion: "",
@@ -135,10 +135,10 @@ function ComprasForm() {
               className="bg-slate-100 max-w-sm rounded-md p-4 mx-auto mt-10"
             >
               <h1 className="text-xl font-bold uppercase text-center">
-                {params.id ? "Editar Compra" : "Crear Compras"}
+                {params.id ? "Editar Mercaderia" : "Crear Mercaderia"}
               </h1>
               <TextField
-                label="Sucursal"
+                label="Marca"
                 sx={{ m: 1, width: "40ch" }}
                 variant="outlined"
                 id="outlined-basic"
@@ -148,7 +148,7 @@ function ComprasForm() {
                 onChange={handleChange}
               />
               <TextField
-                label="Pedido"
+                label="Descripcion"
                 sx={{ m: 1, width: "40ch" }}
                 variant="outlined"
                 id="outlined-basic"
@@ -158,7 +158,7 @@ function ComprasForm() {
                 onChange={handleChange}
               />
               <TextField
-                label="Usuario"
+                label="Precio Compra"
                 sx={{ m: 1, width: "40ch" }}
                 variant="outlined"
                 id="outlined-basic"
@@ -168,7 +168,7 @@ function ComprasForm() {
                 onChange={handleChange}
               />
               <TextField
-                label="Fecha"
+                label="Precio Venta"
                 sx={{ m: 1, width: "40ch" }}
                 variant="outlined"
                 id="outlined-basic"
@@ -177,66 +177,17 @@ function ComprasForm() {
                 required
                 onChange={handleChange}
               />
-              <InputLabel id="demo-simple-select-label">Tipo Comprobante</InputLabel>
+              <InputLabel id="demo-simple-select-label">Impuesto</InputLabel>
               <Select
                 sx={{ m: 1, width: "40ch" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 onChange={handleChange}
               >
-                <MenuItem value="Factura">CONTADO</MenuItem>
+                <MenuItem value="Factura">5</MenuItem>
+                <MenuItem value="Factura">10</MenuItem>
               </Select>
               <TextField
-                label="Nro Factura"
-                sx={{ m: 1, width: "40ch" }}
-                variant="outlined"
-                id="outlined-basic"
-                color="warning"
-                name="Ciu_descripcion"
-                required
-                onChange={handleChange}
-              />
-               <TextField
-                label="Total"
-                sx={{ m: 1, width: "40ch" }}
-                variant="outlined"
-                id="outlined-basic"
-                color="warning"
-                name="Ciu_descripcion"
-                required
-                onChange={handleChange}
-              />
-               <TextField
-                label="Exenta"
-                sx={{ m: 1, width: "40ch" }}
-                variant="outlined"
-                id="outlined-basic"
-                color="warning"
-                name="Ciu_descripcion"
-                required
-                onChange={handleChange}
-              />
-               <TextField
-                label="IVA 5"
-                sx={{ m: 1, width: "40ch" }}
-                variant="outlined"
-                id="outlined-basic"
-                color="warning"
-                name="Ciu_descripcion"
-                required
-                onChange={handleChange}
-              />
-               <TextField
-                label="IVA 10"
-                sx={{ m: 1, width: "40ch" }}
-                variant="outlined"
-                id="outlined-basic"
-                color="warning"
-                name="Ciu_descripcion"
-                required
-                onChange={handleChange}
-              />
-               <TextField
                 label="Estado"
                 sx={{ m: 1, width: "40ch" }}
                 variant="outlined"
@@ -276,7 +227,7 @@ function ComprasForm() {
                   },
                 }}
                 onClick={() => {
-                  navigate("/ciudades");
+                  navigate("/mercaderias");
                 }}
               >
                 Volver
@@ -289,4 +240,4 @@ function ComprasForm() {
   );
 }
 
-export default ComprasForm;
+export default MercaderiasForm;

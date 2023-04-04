@@ -2,10 +2,17 @@ import { Form, Formik } from "formik";
 import { useTasks } from "../context/TaskContext";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Input } from "@mui/material";
+import Button from "@mui/joy/Button";
+import Textarea from "@mui/joy/Textarea";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 function CiudadesForm() {
-  const { createCiudades, getCiuadadId, updateCiudades } = useTasks();
-  const [ciudad, setCiudad] = useState({  
+  const { createCiudades, getCiuadadId, updateCiudades, showNotification } = useTasks();
+  const [ciudad, setCiudad] = useState({
     Ciu_descripcion: "",
   });
   const params = useParams();
@@ -24,55 +31,83 @@ function CiudadesForm() {
   }, []);
 
   return (
-    <div>
+    <Box noValidate autoComplete="off">
+      <ToastContainer />
       <Formik
         initialValues={ciudad}
         enableReinitialize={true}
         onSubmit={async (values, actions) => {
-          console.log("datos para Actualizar",params.id, values);
           if (params.id) {
             await updateCiudades(params.id, values);
+            showNotification.success("Ciudad actualizada");
           } else {
             await createCiudades(values);
           }
           navigate("/ciudades");
           setCiudad({
-            Ciu_descripcion: "",
+            Ciud_id: "",
+            Ciu_descripcion: "", 
           });
         }}
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form
             onSubmit={handleSubmit}
-            className="bg-slate-300 max-w-sm rounded-md p-4 mx-auto mt-10"
+            className="bg-slate-100 max-w-sm rounded-md p-4 mx-auto mt-10"
           >
             <h1 className="text-xl font-bold uppercase text-center">
-              {params.id ? "Editar Registro" : "Crear Registro"}
+              {params.id ? "Editar Ciudad" : "Crear Ciudad"}
             </h1>
-            <label className="text-black block">Descripcion</label>
-            <textarea
+            <TextField
+              label="Ciudad"
+              sx={{ m: 1, width: "40ch" }}
+              variant="outlined"
+              id="outlined-basic"
+              color="warning"
               name="Ciu_descripcion"
-              rows="3"
-              placeholder="Escriba la descripcion"
+              required
               onChange={handleChange}
-              className="px-2 py-1 rounded-sm w-full"
               value={values.Ciu_descripcion}
-            ></textarea>
-
-            <button
+            />
+            <Button
+              variant="contained"
               type="submit"
               disabled={isSubmitting}
-              className="block bg-indigo-500 px-2 py-1 text-white w-full rounded-md m-1"
+              sx={{
+                backgroundColor: "#4B5563",
+                color: "#F3F4F6",
+                width: "100%",
+                marginTop: "4px",
+                borderRadius: "0.375rem",
+                "&:hover": {
+                  backgroundColor: "#1F2937",
+                },
+              }}
             >
-              {isSubmitting ? "Saving..." : "Save"}
-            </button>
-            <button type="submit" className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full m-1" onClick={() => {navigate('/ciudades')}}>
-                Volver 
-            </button>
+              {isSubmitting ? "Registrando..." : "Registrar"}
+            </Button>
+            <Button
+              type="submit"
+              sx={{
+                backgroundColor: "#4B5563",
+                color: "#F3F4F6",
+                width: "100%",
+                marginTop: "4px",
+                borderRadius: "0.375rem",
+                "&:hover": {
+                  backgroundColor: "#1F2937",
+                },
+              }}
+              onClick={() => {
+                navigate("/ciudades");
+              }}
+            >
+              Volver
+            </Button>
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 }
 

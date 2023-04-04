@@ -67,16 +67,9 @@ const Compras = () => {
 
   return (
     <CenteredHalfContainer>
-      <Box
-      // alignItems="center"
-      // height="100%"
-      // overflow="hidden"
-      // justifyContent="center"
-      // maxWidth="md" // maxWidth="md"
-      // my={20}
-      >
+      <Box>
         <h1 className="text-center text-3xl mb-8 truncate">
-          Formulario Compras
+          Registro Compras
         </h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">

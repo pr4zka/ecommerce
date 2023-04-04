@@ -1,10 +1,9 @@
-import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTasks } from "../context/TaskContext";
-import AddTaskCiudades from "../components/AddTaskCiudades";
 import { useEffect } from "react";
-import PdfCiudades from "../components/pdfViewer/PdfCiudades";
-import CiudadesForm from "./CiuadesForm";
+import * as React from "react";
+import PdfPedidos from "../components/pdfViewer/PdfPedidos";
+import { PedidosExel } from "../components/exelDownload/PedidosExel";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,35 +12,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, Container, Button, Hidden } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import EditIcon from "@mui/icons-material/Edit";
+import { Box, Container, Button, Hidden } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const Sucursales = () => {
-  const { getCiudad, ciudades, deleteCiudades } = useTasks();
-  const navigate = useNavigate();
+const Services = () => {
+    const {createCompra, getCompra, compras} = useTasks();
+    //  console.log(compras)
+   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    getCiudad();
-  }, []);
-
-
+   useEffect(() => {
+       getCompra()
+   }, [])
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
-      fontSize: 16,
+      fontSize: 10,
       fontWeight: "bold",
-      letterSpacing: 5,
+      letterSpacing: 1,
       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
       padding: 10,
       textAlign: "center", // Centrar en el medio horizontal
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 13,
+      fontSize: 11,
     },
   }));
 
@@ -66,47 +63,48 @@ const Sucursales = () => {
     },
   }));
 
+  useEffect(() => {}, []);
+
   return (
     <CenteredHalfContainer>
-      <Box
-      // alignItems="center"
-      // height="100%"
-      // overflow="hidden"
-      // justifyContent="center"
-      // maxWidth="md" // maxWidth="md"
-      // my={20}
-      >
+      <Box>
         <h1 className="text-center text-3xl mb-8 truncate">
-          Registro Sucursales
+          Registro Servicios
         </h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell align="justify">Codigo</StyledTableCell>
-                <StyledTableCell align="justify">Descripcion</StyledTableCell>
+                <StyledTableCell align="justify">Venta</StyledTableCell>
+                <StyledTableCell align="justify">Transportista</StyledTableCell>
+                   <StyledTableCell align="justify">Direccion</StyledTableCell>
+                <StyledTableCell align="justify">Fecha</StyledTableCell>
+                <StyledTableCell align="justify">Estado</StyledTableCell>
+                <StyledTableCell align="justify">Sucursal</StyledTableCell>
                 <StyledTableCell align="justify"></StyledTableCell>
                 <StyledTableCell align="justify"></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {ciudades.map((row) => (
-                <StyledTableRow key={row.Ciu_id}>
-                  <StyledTableCell align="justify">{row.Ciu_id}</StyledTableCell>
-                  <StyledTableCell align="justify">
-                    {row.Ciu_descripcion}
-                  </StyledTableCell>
-
-                  <StyledTableCell
-                    onClick={() => {
-                      navigate(`/edit/ciudades/${row.Ciu_id}`);
+              {compras.map((row) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell align="justify">{row.id}</StyledTableCell>
+                  <StyledTableCell align="justify">{row.pedido}</StyledTableCell>
+                  <StyledTableCell align="justify">{row.proveedor}</StyledTableCell>
+                   <StyledTableCell align="justify">{row.usuario}</StyledTableCell>
+                  <StyledTableCell align="justify">{row.sucursal}</StyledTableCell>
+                  <StyledTableCell align="justify">{row.fecha}</StyledTableCell>
+                  <StyledTableCell align="justify">{row.tipoComprobante}</StyledTableCell>
+                  <StyledTableCell onClick={() => {
+                      navigate(`/edit/compras/${row.id}`);
                     }}
                   >
                     <EditIcon color="info" className="cursor-pointer" />
                   </StyledTableCell>
                   <StyledTableCell
                     onClick={() => {
-                      deleteCiudades(row.Ciu_id);
+                      deletePedido(row.id);
                     }}
                   >
                     <DeleteIcon color="error" className="cursor-pointer" />
@@ -121,21 +119,21 @@ const Sucursales = () => {
           color="primary"
           sx={{ mr: 1, marginTop: "20px" }}
         >
-          <PdfCiudades />
+          <PdfPedidos />
         </Button>
         <Button
           variant="contained"
           color="success"
           sx={{ mr: 1, marginTop: "20px" }}
         >
-          {/* <PedidosExel /> */}
+          <PedidosExel />
         </Button>
         <Button
           variant="contained"
           color="inherit"
           style={{ position: "absolute", right: "490px", marginTop: "20px" }}
           onClick={() => {
-            navigate("/new/ciudades");
+            navigate("/new/service");
           }}
         >
           <PostAddIcon color="primary" className="cursor-pointer w-20" />
@@ -164,4 +162,4 @@ const Sucursales = () => {
   );
 };
 
-export default Sucursales;
+export default Services;
